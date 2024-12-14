@@ -20,6 +20,8 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
+
+.config/iterm2
 brew-packages.txt
 readme.md
 terminal_setup.sh
