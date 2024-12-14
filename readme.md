@@ -2,6 +2,17 @@
 
 Contains configurations for my system.
 
+## Terminal Setup
+
+These instructions are meant to be used on Mac. Instructions for terminal setup on windows TBA.
+
+1. Install Homebrew
+2. A transparent terminal such as iterm2.
+3. Install neovim
+4. Nerdfonts so that icons in neovim can show up properly.
+5. Once nerdfonts has been installed, we need to open iterm2 preferences > Profile > Text: update the font.
+
+
 ## Some notes
 
 Your home directory needs to exactly match the folder structure on ~/dotfiles directory.

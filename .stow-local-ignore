@@ -20,4 +20,6 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
+brew-packages.txt
 readme.md
+terminal_setup.sh
