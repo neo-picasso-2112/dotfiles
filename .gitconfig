@@ -1,0 +1,8 @@
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
+  lg = log --oneline --graph --decorate
+  amend = commit --amend --no-edit
+  pr = pull --rebase

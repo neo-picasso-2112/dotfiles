@@ -1,0 +1,9 @@
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gco="git checkout"
+alias gp="git push"
+alias gpo="git push origin"
+alias gpl="git pull"
+alias gd="git diff"
+
