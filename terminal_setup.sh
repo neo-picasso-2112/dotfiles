@@ -18,12 +18,6 @@ fi
 # Install GNU stow
 brew install stow
 
-# Add Homebrew to PATH (macOS-specific)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
 # Install iTerm2
 if ! command_exists iterm2; then
   echo "Installing iTerm2..."
@@ -40,9 +34,34 @@ else
   echo "Neovim is already installed."
 fi
 
-# Install Nerd Fonts
+# Install Oh-My-Zsh
+if [-d "$HOME/.oh-my-zsh" ]; then
+  echo "Oh My Zsh is already installed."
+else
+  echo "Oh My Zsh is not installed. Installing now ..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+
+# Install Nerd Fonts & PowerLevel10K theme
 echo "Installing Nerd Fonts..."
 brew tap homebrew/cask-fonts
+echo "Install Powerlevel10k theme..."
+brew install powerlevel10k
+echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+
+# Update OhMyZsh Theme
+NEW_THEME="powerlevel10k/powerlevel10k"
+# Check if ZSH Theme is already set
+if grep -q '^ZSH_THEME=' ~/.zshrc; then
+  # replace existing theme
+  sed -i '' 's/^ZSH_THEME=.*/ZSH_THEME="'"$NEW_THEME"'"/' ~/.zshrc
+else
+  # if not found, add it to end.
+  echo 'ZSH_THEME="'"$NEW_THEME"'"' >> ~/.zshrc
+fi
+echo "Updated ~/.zshrc to use Powerlevel10K. Restart your terminal or run 'source ~/.zshrc'."
+
 brew install font-meslo-lg-nerd-font
 # brew install --cask font-hack-nerd-font
 brew install $(cat brew-packages.txt)
