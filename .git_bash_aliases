@@ -1,9 +1,17 @@
 alias gs="git status"
-alias ga="git add"
-alias gc="git commit"
 alias gco="git checkout"
 alias gp="git push"
 alias gpo="git push origin"
 alias gpl="git pull"
 alias gd="git diff"
 
+alias python=python3
+
+alias winning="git shortlog --summary --numbered --email"
+alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+alias gl="git log"
+alias gcam="git commit -am"
+alias ga="git add -A"
+alias repos="cd ~/Desktop/repos"
+alias gc="git checkout"
+alias gb="git branch"
