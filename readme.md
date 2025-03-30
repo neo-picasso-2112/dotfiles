@@ -49,7 +49,18 @@ For mac users:
 
 ## Setup & Installation
 
-First install GNU Stow using any package manager i.e. Brew.
+1. Run following commands:
+
+```bash
+chmod u+x ~/dotfiles/terminal_setup.sh
+./terminal_setup.sh
+```
+
+2. Install requirements: GNU Stow using any package manager i.e. Brew. GNU Stow is a symlink farm manager which takes distinct packages of software located in separate directories on file system, and makes them appear to be installed in the same place.
+
+```bash
+brew install stow
+```
 
 Once installed, navigate to your dotfiles directory (e.g. ~/dotfiles) and running `stow .`
 

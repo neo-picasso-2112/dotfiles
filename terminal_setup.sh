@@ -15,6 +15,9 @@ else
   echo "Homebrew is already installed."
 fi
 
+# Install GNU stow
+brew install stow
+
 # Add Homebrew to PATH (macOS-specific)
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
