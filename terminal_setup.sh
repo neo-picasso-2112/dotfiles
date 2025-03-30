@@ -5,7 +5,7 @@ command_exists() {
   command -v "$1" &>/dev/null
 }
 
-echo "Starting setup..."
+echo "Starting setup ..."
 
 # Install Homebrew if not already installed
 if ! command_exists brew; then
@@ -42,13 +42,12 @@ else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-
 # Install Nerd Fonts & PowerLevel10K theme
 echo "Installing Nerd Fonts..."
 brew tap homebrew/cask-fonts
 echo "Install Powerlevel10k theme..."
 brew install powerlevel10k
-echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
+echo "source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme" >> ~/.zshrc
 
 # Update OhMyZsh Theme
 NEW_THEME="powerlevel10k/powerlevel10k"
@@ -66,6 +65,4 @@ brew install font-meslo-lg-nerd-font
 # brew install --cask font-hack-nerd-font
 brew install $(cat brew-packages.txt)
 
-
 echo "Setup complete!"
-
