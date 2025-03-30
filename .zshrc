@@ -10,6 +10,9 @@ if [ -f ~/.git_bash_aliases ]; then
   source ~/.git_bash_aliases
 fi
 
+# Console output during zsh initialization detected.
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
