@@ -1,5 +1,5 @@
 alias gs="git status"
-alias gco="git checkout"
+alias gc="git checkout"
 alias gp="git push"
 alias gpo="git push origin"
 alias gpl="git pull"
