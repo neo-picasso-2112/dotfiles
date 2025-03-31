@@ -11,7 +11,7 @@ if [ -f ~/.git_bash_aliases ]; then
 fi
 
 # Append custom root certificates on company's intranet to avoid SSL Certificate Verify errors
-CERT_PATH=$(python -m certifi)
+CERT_PATH=$(python3.12 -m certifi)
 export SSL_CERT_FILE=${CERT_PATH}
 export REQUESTS_CA_BUNDLE=${CERT_PATH}
 

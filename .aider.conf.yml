@@ -1,0 +1,27 @@
+auto-commits: false
+gitignore: false
+auto-lint: true
+
+read:
+  - ~/dotfiles/aider_config/CONVENTIONS.md
+
+dark-mode: true
+
+model: openai/gpt-4o
+# deepseek/deepseek-chat or aider --list-models deepseek
+
+openai-api-base: https://api.openai.com/v1
+
+alias:
+  - "fast:gpt-4o-mini"
+  - "coder:deepseek/deepseek-coder"
+# usage: aider --model fast
+
+map-tokens: 2048
+# type /tokens
+# E.g. $ 0.0050    2,002 system messages - each time we send a prompt, it will cost minimum 0.005
+
+cache-prompts: true
+stream: false
+# keeps cache warm, hope ping doesn't cost too much money at 5 min intervals.
+cache-keepalive-pings: 1
