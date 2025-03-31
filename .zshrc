@@ -10,6 +10,11 @@ if [ -f ~/.git_bash_aliases ]; then
   source ~/.git_bash_aliases
 fi
 
+# Append custom root certificates on company's intranet to avoid SSL Certificate Verify errors
+CERT_PATH=$(python -m certifi)
+export SSL_CERT_FILE=${CERT_PATH}
+export REQUESTS_CA_BUNDLE=${CERT_PATH}
+
 # Console output during zsh initialization detected. Turn off warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
