@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Git Bash Aliases
-source ~/.git_bash_aliases
+source ~/.zsh_aliases
 
 # Append custom root certificates on company's intranet to avoid SSL Certificate Verify errors
 export REQUESTS_CA_BUNDLE=$(brew --prefix)/etc/openssl@3/cert.pem
