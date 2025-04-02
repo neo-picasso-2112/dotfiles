@@ -5,8 +5,39 @@ because we need to update these notebooks to be unity catalog compatible.
 
 ## General Guidance
 - Modify files as minimally as possible to accomplish the task. Don't make superfluous changes, whitespace changes or changes to code that don't relate to goal.
+- Do not use IDENTIFIER clause with parameter markers inside temporary views, use 3 level namespace to refer to views/tables/functions inside temporary view statements e.g. `select * from catalogue.schema.table`
+- We will never source or target schema "velocity_analytics_foundation" in our catalogue, it will always be "loyalty" schema for tables and "stage" schema for staging tables.
+- Change select references to `va_alms_prd` schema to `edp_prd` database catalogue, and schema `silver_alms` always.
+- Always remove `stage_` prefix on tables for staging tables when refactoring code, and the target schema should be updated to "staging".
 
-## Conventions
+## SQL Coding Rules for Refactoring
+1. Always replace ROW_NUMBER() inner queries with the QUALIFY ROW_NUMBER() function for better readability and performance.
+```sql
+# bad example
+with cte as (
+    select *, row_number() over partition by (col1, col2 order by date desc) as rn from table
+)
+select * from cte
+where rn = 1
+
+# refactored good code
+select * from table
+qualify row_number() over partition by (col1, col2 order by date desc) = 1 
+```
+
+2. Remove any mentions of `${<variable>}` in the code and replace with `identifier` clause with parameter markers.
+3. Ensure assertions must have alias CHECKSUM. For e.g. `SELECT ASSERT_TRUE(...) AS checksum`
+4. Use table qualifier/alias when more than 1 tables are used in a query.
+5. Refactor any `ORDER BY` and `GROUP BY` SQL clauses that uses numeric column positions to use explicit column names instead to enforce clarity.
+```sql
+# bad example
+select col1,col2 from table order by 1,2
+
+# good refactored code
+select col1,col2 from table order by col1,col2
+```
+
+## Refactoring Checklist
 
 1. At the beginning of workbook - Configure session & Parameterise Catalogue name, Schema name, Delta days always.
 ```sql
@@ -101,20 +132,9 @@ INSERT INTO IDENTIFIER(:catalogue_name || '.' || :target_schema || '.vel_classif
 IDENTIFIER(:catalogue_name || '.' || :source_schema || '.vel_classification_code_ref_snapshot')
 ```
 
-4. Replace ROW_NUMBER() inner query with QUALIFY ROW_NUMBER() … = 1
-
-5. Avoid SELECT * - specify required columns in SELECT statement.
-- If you do not know the required select columns, then leaving it as SELECT * should suffice.
-
-6. Ensure assertions must have alias CHECKSUM. For e.g. `SELECT ASSERT_TRUE(...) AS checksum`
-
-7. Use table qualifier/alias when more than 1 tables are used in a query
-
-8. Only cache tables if it is used > 2 times within the code notebook/script.
-
-9. Do not format the code, and change identation. Leave long lines as is, and only delete and change necessary lines of code to follow coding standards.
-
-10. Push predicates early within the SQL query.
+4. Avoid SELECT * - specify required columns in SELECT statement.
+5. Only cache tables if it is used > 2 times within the code notebook/script.
+6. Push predicates early within the SQL query.
 
 ## Table Naming Conventions
 
@@ -130,3 +150,23 @@ Otherwise, you can assume the source tables we are selecting from (tables withou
 - Use parameter markers with IDENTIFIER clause or without IDENTIFIER clause, or use the values directly to select from 3 level namespace tables.
 
 Lastly, most code will select tables from a schema named `va_alms_prd.<table>`. Again, you must update this reference to `edp_prd.silver_alms.<table>` since the same tables from `va_alms_prd` schema can also be found within the unity catalog `edp_prd.silver_alms` schema.
+
+#### Usage Examples
+- Bad code example
+```sql
+select * from va_alms_prd.partners_hist;
+select * from velocity_foundations_analyticsstaging_partners_hist.stage_table;
+```
+
+- Good refactored code:
+```sql
+CREATE WIDGET TEXT edp_catalogue_name DEFAULT 'edp_prd';
+CREATE WIDGET TEXT edp_source_schema DEFAULT 'silver_alms';
+CREATE WIDGET TEXT stage_source_schema DEFAULT 'stage';
+CREATE WIDGET TEXT source_schema DEFAULT 'loyalty';
+select * from IDENTIFIER(:edp_catalogue_name || '.' || :edp_source_schema || '.partners_hist');
+-- Or select * from edp_prd.silver_alms.partners_hist when referring to tables in temporary views.
+select * from IDENTIFIER(:catalogue_name || '.' || :source_schema || '.table');
+-- Note `stage_` prefix is removed from table name.
+-- Or select * from wb_velocityanalytics_prd.stage.table when referring to tables in temporary views.
+```

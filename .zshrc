@@ -6,14 +6,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Git Bash Aliases
-if [ -f ~/.git_bash_aliases ]; then
-  source ~/.git_bash_aliases
-fi
+source ~/.git_bash_aliases
 
 # Append custom root certificates on company's intranet to avoid SSL Certificate Verify errors
-CERT_PATH=$(python3.12 -m certifi)
-export SSL_CERT_FILE=${CERT_PATH}
-export REQUESTS_CA_BUNDLE=${CERT_PATH}
+export REQUESTS_CA_BUNDLE=$(brew --prefix)/etc/openssl@3/cert.pem
+
 
 # Console output during zsh initialization detected. Turn off warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
