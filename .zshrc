@@ -10,7 +10,7 @@ source ~/.zsh_aliases
 
 # Append custom root certificates on company's intranet to avoid SSL Certificate Verify errors
 export REQUESTS_CA_BUNDLE=$(brew --prefix)/etc/openssl@3/cert.pem
-
+export SSL_CERT_DIR=$(brew --prefix)/etc/openssl@3/certs
 
 # Console output during zsh initialization detected. Turn off warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
@@ -119,6 +119,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias python=python3.12
+
+
 source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

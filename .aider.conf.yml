@@ -1,6 +1,7 @@
 auto-commits: false
 gitignore: false
 auto-lint: false
+verify-ssl: false
 
 read:
   - ~/dotfiles/aider_config/CONVENTIONS.md
