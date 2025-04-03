@@ -7,6 +7,8 @@ alias gd="git diff"
 
 alias python=python3
 
+alias copy-diff="git diff --name-only $(git merge-base origin/master HEAD) | xargs -I {} cp --parents '{}'"
+
 alias winning="git shortlog --summary --numbered --email"
 alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 alias gl="git log"
