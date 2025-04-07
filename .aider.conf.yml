@@ -5,6 +5,7 @@ verify-ssl: false
 
 read:
   - ~/dotfiles/aider_config/CONVENTIONS.md
+  - ~/dotfiles/aider_config/refactoring_table_references.md
 
 dark-mode: true
 
