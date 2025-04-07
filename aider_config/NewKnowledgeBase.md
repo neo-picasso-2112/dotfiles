@@ -25,3 +25,6 @@
  inserting new records without updating existing ones, ensure that the `MERGE INTO`
  statement only includes the `WHEN NOT MATCHED THEN INSERT` clause. This maintains the
  original behavior and ensures backward compatibility.
+
+8. Emphasizing the Use of Widgets for All Schema and Catalogue References:
+   - Consistently use widgets for all schema and catalogue references to ensure parameterization and flexibility across different environments.
