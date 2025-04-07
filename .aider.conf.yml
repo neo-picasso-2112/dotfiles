@@ -6,7 +6,7 @@ verify-ssl: false
 read:
   - ~/dotfiles/aider_config/CONVENTIONS.md
   - ~/dotfiles/aider_config/refactoring_table_references.md
-
+  - ~/dotfiles/aider_config/guide.md
 dark-mode: true
 
 model: openai/gpt-4o
