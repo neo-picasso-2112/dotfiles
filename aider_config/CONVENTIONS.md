@@ -135,38 +135,3 @@ IDENTIFIER(:catalogue_name || '.' || :source_schema || '.vel_classification_code
 4. Avoid SELECT * - specify required columns in SELECT statement.
 5. Only cache tables if it is used > 2 times within the code notebook/script.
 6. Push predicates early within the SQL query.
-
-## Table Naming Conventions
-
-As you go an update the Databrick's notebooks, you will notice some tables referenced has **staging_** prefix in the table name itself.
-- When you update this table reference to use 3 level namespace, remove the `staging_` prefix from the table name.
-- Next, Ensure you create a widget `source_staging_schema` with value `staging`.
-- Lastly, refer to this widget within the code as a parameter marker or the values directly.
-- Note: Tables with prefix `staging_` is always found within the `staging` schema within the catalogue `wb_velocityanalytics_prd`. Just remember to remove `staging_` prefix in the table name as you update the code.
-
-Otherwise, you can assume the source tables we are selecting from (tables without `staging_` prefix in its table name), assume you can always source the data from:
-- `wb_velocityanalytics_prd` catalogue and `loyalty` schema.
-- Table names will remain the same.
-- Use parameter markers with IDENTIFIER clause or without IDENTIFIER clause, or use the values directly to select from 3 level namespace tables.
-
-Lastly, most code will select tables from a schema named `va_alms_prd.<table>`. Again, you must update this reference to `edp_prd.silver_alms.<table>` since the same tables from `va_alms_prd` schema can also be found within the unity catalog `edp_prd.silver_alms` schema.
-
-#### Usage Examples
-- Bad code example
-```sql
-select * from va_alms_prd.partners_hist;
-select * from velocity_foundations_analyticsstaging_partners_hist.stage_table;
-```
-
-- Good refactored code:
-```sql
-CREATE WIDGET TEXT edp_catalogue_name DEFAULT 'edp_prd';
-CREATE WIDGET TEXT edp_source_schema DEFAULT 'silver_alms';
-CREATE WIDGET TEXT stage_source_schema DEFAULT 'stage';
-CREATE WIDGET TEXT source_schema DEFAULT 'loyalty';
-select * from IDENTIFIER(:edp_catalogue_name || '.' || :edp_source_schema || '.partners_hist');
--- Or select * from edp_prd.silver_alms.partners_hist when referring to tables in temporary views.
-select * from IDENTIFIER(:catalogue_name || '.' || :source_schema || '.table');
--- Note `stage_` prefix is removed from table name.
--- Or select * from wb_velocityanalytics_prd.stage.table when referring to tables in temporary views.
-```
