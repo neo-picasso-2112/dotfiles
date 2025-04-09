@@ -40,3 +40,8 @@ input-history-file: /Users/williamnguyen/.aider.input.history
 # Specify chat history file (default: .aider.chat.history.md)
 chat-history-file: /Users/williamnguyen/.aider.chat.history.md
 
+####################
+# Other Settings
+
+# Specify the .env file to load (default: .env in git root)
+env-file: .env.aider

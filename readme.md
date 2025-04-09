@@ -12,6 +12,8 @@ These instructions are meant to be used on Mac. Instructions for terminal setup 
 4. Nerdfonts so that icons in neovim can show up properly.
 5. Once nerdfonts has been installed, we need to open iterm2 preferences > Profile > Text: update the font.
 
+As of 2025, we are using `gruvbox` which is a retro Vim theme with [font fantasque-sans](https://github.com/belluzj/fantasque-sans).
+This is configured by installing `gruvbox` within the `.vimrc` file. Fonts and background can be edited in Iterm2 settings.
 
 ## Some notes
 
@@ -63,4 +65,21 @@ brew install stow
 ```
 
 Once installed, navigate to your dotfiles directory (e.g. ~/dotfiles) and running `stow .`
+
+3. We need to install `vim-plug` so that our `.vimrc` configuration works.
+
+You may notice even when you run `stow .` to create symlinks for `.vim` directory into your home directory that when you open files in VIM,
+there will still be errors. That is because you need to manually delete `.vim/autoload/plug.vim` and install it again in order for `vim-plug`
+to be recognised as installed. You can check if `vim-plug` manager is installed by running `:scriptnames` in Vim mode to see if `vim-plug` 
+manager is installed.
+
+So how do you install `.vimrc` config?
+- Run `stow .` in your dotfiles directory
+- Remove .vim/autoload/plug.vim
+- Run `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+- In Vim mode, run `:PlugInstall`
+
+This step will provide a basic editor to work with files in Vim.
+
 
