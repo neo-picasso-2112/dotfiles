@@ -1,3 +1,9 @@
+################3#######
+# Main Model
+
+model: openrouter/deepseek/deepseek-r1:free 
+# deepseek/deepseek-chat or aider --list-models/deep-seek
+
 auto-commits: false
 gitignore: false
 auto-lint: false
@@ -9,17 +15,19 @@ read:
   - ~/dotfiles/aider_config/guide.md
   - ~/dotfiles/aider_config/NewKnowledgeBase.md
 
-dark-mode: true
-
-model: openai/gpt-4o
-# deepseek/deepseek-chat or aider --list-models deepseek
 
 openai-api-base: https://api.openai.com/v1
 
+# Usage: aider --model fast
 alias:
   - "fast:gpt-4o-mini"
   - "coder:deepseek/deepseek-coder"
-# usage: aider --model fast
+  - "gemini:openrouter/google/gemini-2.5-pro-exp-03-25:free"
+  - "sonnet:openrouter/anthropic/claude-3.5-sonnet"
+  - "r1:openrouter/deepseek/deepseek-r1"
+
+weak-model: openrouter/google/gemini-2.0-flash-001
+# weak-model: openai/gpt-4o-mini
 
 # Force repo mapping by running aider with `--map-tokens 1024
 map-tokens: 0 # disabling scanning repo
@@ -32,6 +40,12 @@ stream: false
 cache-keepalive-pings: 1
 
 #####################
+# Model Settings
+
+## Specify model to use for editor tasks (default depends on --model)
+editor-model: openrouter/google/gemini-2.5-pro-exp-03-25:free 
+
+#####################
 # History Files:
 
 # Specify chat input history file (default: .aider.input.history
@@ -40,8 +54,22 @@ input-history-file: /Users/williamnguyen/.aider.input.history
 # Specify chat history file (default: .aider.chat.history.md)
 chat-history-file: /Users/williamnguyen/.aider.chat.history.md
 
-####################
+######################
+# Output Settings
+
+code-theme: default
+dark-mode: true
+## Show diffs when committing changes (default: False)
+show-diffs: true
+
+#######################
 # Other Settings
 
 # Specify the .env file to load (default: .env in git root)
-env-file: .env.aider
+env-file: /Users/williamnguyen/.env.aider
+
+## Enable/disable terminal bell notification when LLM responses are ready. Default: False
+notifications: false
+
+## Specify command to run for notifications instead of terminal bell. 
+notifications-command: 'say aider is ready'
