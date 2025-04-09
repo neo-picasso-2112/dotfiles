@@ -23,5 +23,5 @@ alias copy-diff="git diff --name-only $(git merge-base origin/master HEAD) | xar
 ########################
 # Quick Lookups
 alias winning="git shortlog --summary --numbered --email"
-alias repos="cd ~/Desktop/repos"
+alias repos="cd ~/repos"
 alias dot="cd ~/dotfiles"
