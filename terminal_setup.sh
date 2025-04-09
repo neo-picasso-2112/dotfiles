@@ -63,6 +63,16 @@ echo "Updated ~/.zshrc to use Powerlevel10K. Restart your terminal or run 'sourc
 
 brew install font-meslo-lg-nerd-font
 # brew install --cask font-hack-nerd-font
+echo "Installed font-meslo-lg-nerd font!"
+brew install --cask font-fantasque-sans-mono
+echo "Installed font-fantasque-sans-mono to be suitable with gruvbox theme!"
 brew install $(cat brew-packages.txt)
+echo "Installed brew-packages.txt!"
+brew install fzf
+[[ -f $HOME/.fzf.zsh ]] && source $HOME/.fzf.zsh
+echo "Installed fzf!"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+echo "Installed vim plug!"
 
-echo "Setup complete!"
+
