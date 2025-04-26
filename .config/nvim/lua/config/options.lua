@@ -46,6 +46,8 @@ opt.pumheight = 10 -- Max number of items to show in popup menu
 -- ## Appearance & UI ##
 -- ----------------------------------------------------------------------------
 
+opt.guifont = { "FantasqueSansM Nerd Font", ":h14" }
+
 -- Line Numbers
 opt.number = true        -- Show line numbers
 opt.relativenumber = true -- Show relative line numbers (useful for vertical motion)
@@ -82,9 +84,9 @@ opt.smartindent = true -- Be smart about indentation
 opt.autoindent = true -- Always auto-indent new lines
 
 -- Tab and shift widths
-opt.tabstop = 2     -- Number of visual spaces per TAB
-opt.softtabstop = 2 -- Number of spaces for TAB key press/backspace
-opt.shiftwidth = 2  -- Number of spaces for indentation commands (>>, <<)
+opt.tabstop = 4     -- Number of visual spaces per TAB
+opt.softtabstop = 4 -- Number of spaces for TAB key press/backspace
+opt.shiftwidth = 4  -- Number of spaces for indentation commands (>>, <<)
 
 -- ----------------------------------------------------------------------------
 -- ## Search & Completion ##
