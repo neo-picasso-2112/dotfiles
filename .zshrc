@@ -93,6 +93,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export LSCOLORS="GxFxCxDxBxegedabagaced"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -120,7 +121,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias python=python3.12
-
+alias ls='ls -G'
 
 source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -129,3 +130,5 @@ source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # # fzf configuration
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
+
+
