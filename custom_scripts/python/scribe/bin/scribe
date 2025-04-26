@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# --- macOS Compatibility Fix & Path Calculation ---
+# Get the initial path of the script being executed (might be a symlink)
+SOURCE="${BASH_SOURCE[0]}"
+# Resolve $SOURCE until the file is no longer a symlink
+while [ -h "$SOURCE" ]; do
+  # Get the directory containing the symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  # Read the target of the symlink
+  SOURCE="$(readlink "$SOURCE")"
+  # If $SOURCE was a relative symlink, resolve it relative to the directory
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+# Get the absolute, physical directory containing the final target script (this bin/ dir)
+REAL_SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+# --- End Fix ---
+
+# The tool's root directory is the parent of the REAL script's 'bin' directory
+TOOL_ROOT_DIR="$(dirname "$REAL_SCRIPT_DIR")"
+# Tool name should be the basename of the tool's root directory
+TOOL_NAME=$(basename "$TOOL_ROOT_DIR") # Should be "scribe"
+# Define the virtual environment path relative to the tool's root
+VENV_PATH="$TOOL_ROOT_DIR/.venv_$TOOL_NAME" # Path is ".../scribe/.venv_scribe"
+
+# Check if venv exists. If not, instruct user to run the main setup script.
+if [ ! -d "$VENV_PATH" ]; then
+    echo "Error: Virtual environment for '$TOOL_NAME' not found at '$VENV_PATH'" >&2
+    SETUP_SCRIPT="$TOOL_ROOT_DIR/setup_scribe.sh"
+    echo "Please run the setup script for scribe first:" >&2
+    if [ -f "$SETUP_SCRIPT" ]; then
+         echo "  cd \"$TOOL_ROOT_DIR\" && ./setup_scribe.sh" >&2
+    else
+         echo "  (Could not find setup script at '$SETUP_SCRIPT')" >&2
+    fi
+    exit 1
+fi
+
+# Activate the tool's specific virtual environment
+source "$VENV_PATH/bin/activate"
+
+# --- START FIX ---
+# Store the current directory the user is in
+ORIGINAL_CWD=$(pwd)
+# Change to the tool's root directory (which contains the 'scribe' source package)
+cd "$TOOL_ROOT_DIR" || { echo "Error: Failed to cd into $TOOL_ROOT_DIR" >&2; exit 1; }
+# --- END FIX ---
+
+# Execute the tool's main Python module/script
+# Now Python -m can find the 'scribe' package in the current directory
+python -m "$TOOL_NAME.main" "$@"
+PYTHON_EXIT_CODE=$? # Capture the exit code
+
+# --- Optional: Change back to original directory ---
+cd "$ORIGINAL_CWD" || echo "Warning: Could not cd back to original directory $ORIGINAL_CWD" >&2
+# --- End Optional ---
+
+# Forward the exit code of the python script
+exit $PYTHON_EXIT_CODE

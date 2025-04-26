@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "scribe-kb"
+version = "0.1.0"
+description = "CLI tool for creating knowledge base notes from templates."
+authors = ["Your Name <you@example.com>"]
+license = "MIT" # Or your preferred license
+readme = "README.md" # You might want to add a README later
+
+[tool.poetry.dependencies]
+python = "^3.8" # Or your minimum required Python version
+typer = {extras = ["rich"], version = "^0.9.0"} # Installs typer and rich
+inquirerpy = "^0.3.4"
+rich = "^14.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# If not using Poetry, create a requirements.txt:
+# typer[rich]>=0.9.0
+# inquirerpy>=0.3.4
