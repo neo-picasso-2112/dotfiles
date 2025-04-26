@@ -122,7 +122,7 @@ export LSCOLORS="GxFxCxDxBxegedabagaced"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias python=python3.12
 alias ls='ls -G'
-
+alias brain='cd ~/repos/second-brain'
 source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
