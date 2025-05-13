@@ -92,7 +92,7 @@ plugins=(vi-mode zsh-syntax-highlighting zsh-autosuggestions web-search fzf ) # 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
+export PATH="$HOME/bin:$PATH" # This is so that our custom tooling symlinked to this location will be recognised.
 export LSCOLORS="GxFxCxDxBxegedabagaced"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -132,3 +132,4 @@ source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
 
 
+source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
