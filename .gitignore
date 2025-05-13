@@ -1,5 +1,7 @@
 .gitconfig
 .env
 .venv*
-*.pyc
+**/*.pyc
 __pycache__/
+
+
