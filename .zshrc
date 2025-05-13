@@ -25,13 +25,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "powerlevel10k/powerlevel10k" )
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "powerlevel10k/powerlevel10k" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -123,13 +123,10 @@ export LSCOLORS="GxFxCxDxBxegedabagaced"
 alias python=python3.12
 alias ls='ls -G'
 alias brain='cd ~/repos/second-brain'
-source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
+# to be deleted, and instead we use ZSH_THEME to source theme instead. source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# to be deleted!!! [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # # fzf configuration
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
-
-
-source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
