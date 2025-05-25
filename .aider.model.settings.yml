@@ -1,5 +1,5 @@
 - name: (default values)
-  edit_format: whole
+  # edit_format: whole
   weak_model_name: null
   use_repo_map: false
   send_undo_reply: false
@@ -20,16 +20,25 @@
   system_prompt_prefix: null
   accepts_settings: null
 
+- name: openrouter/google/gemini-2.5-pro-exp-03-25:free
+  edit_format: diff-fenced
+  weak_model_name: openrouter/google/gemini-2.0-flash-exp:free
+  use_repo_map: true
+
+- name: openrouter/google/gemini-2.5-pro-preview-03-25
+  edit_format: diff-fenced
+  weak_model_name: openrouter/google/gemini-2.0-flash-exp:free
+  use_repo_map: true
+
 - name: openrouter/deepseek/deepseek-r1
   edit_format: diff
-  weak_model_name: openrouter/deepseek/deepseek-chat
+  weak_model_name: openrouter/deepseek/deepseek-r1:free
   examples_as_sys_msg: true
   extra_params:
     max_tokens: 8192
     include_reasoning: true
   caches_by_default: true
   editor_model_name: openrouter/anthropic/claude-3.5-sonnet
-  # editor_model_name: openrouter/deepseek/deepseek-chat
   editor_edit_format: editor-diff
 
 - name: openrouter/deepseek/deepseek-r1:free
@@ -41,10 +50,7 @@
     max_tokens: 8192
   caches_by_default: true
 
-- name: openrouter/anthropic/claude-3-opus
-  edit_format: diff
-  weak_model_name: openrouter/anthropic/claude-3-5-haiku
-  use_repo_map: true
+########################################    OPENROUTER MODELS THAT ARE CONSIDERED BUT COSTLY  ####################################################################################################
 
 - name: openrouter/anthropic/claude-3.5-sonnet
   edit_format: diff
@@ -82,35 +88,18 @@
   editor_model_name: openrouter/anthropic/claude-3.7-sonnet
   editor_edit_format: editor-diff
   accepts_settings:
-  - thinking_tokens
+    - thinking_tokens
 
-- name: openrouter/anthropic/claude-3.7-sonnet:beta
+- name: openrouter/anthropic/claude-3-opus
   edit_format: diff
   weak_model_name: openrouter/anthropic/claude-3-5-haiku
   use_repo_map: true
-  overeager: true
-  examples_as_sys_msg: true
-  extra_params:
-    extra_headers:
-      anthropic-beta: prompt-caching-2024-07-31,pdfs-2024-09-25,output-128k-2025-02-19
-    max_tokens: 64000
-  cache_control: true
-  editor_model_name: openrouter/anthropic/claude-3.7-sonnet
-  editor_edit_format: editor-diff
-  accepts_settings:
-  - thinking_tokens
 
-- name: openrouter/cohere/command-a-03-2025
-  examples_as_sys_msg: true
-
-- name: openrouter/deepseek/deepseek-chat
-  edit_format: diff
-  use_repo_map: true
-  reminder: sys
-  examples_as_sys_msg: true
+########################################    OPENROUTER MODELS IN CONSIDERATION AND REVIEW   ####################################################################################################
 
 - name: openrouter/deepseek/deepseek-chat-v3-0324
   edit_format: diff
+  weak_model_name: openrouter/deepseek/deepseek-chat-v3-0324:free
   use_repo_map: true
   reminder: sys
   examples_as_sys_msg: true
@@ -140,6 +129,38 @@
   editor_model_name: openrouter/deepseek/deepseek-chat:free
   editor_edit_format: editor-diff
 
+- name: openrouter/openrouter/quasar-alpha
+  edit_format: diff
+  use_repo_map: true
+  examples_as_sys_msg: true
+
+########################################    OPENROUTER MODELS NOT IN USE. TO BE DEPRECATED   ####################################################################################################
+
+- name: openrouter/anthropic/claude-3.7-sonnet:beta
+  edit_format: diff
+  weak_model_name: openrouter/anthropic/claude-3-5-haiku
+  use_repo_map: true
+  overeager: true
+  examples_as_sys_msg: true
+  extra_params:
+    extra_headers:
+      anthropic-beta: prompt-caching-2024-07-31,pdfs-2024-09-25,output-128k-2025-02-19
+    max_tokens: 64000
+  cache_control: true
+  editor_model_name: openrouter/anthropic/claude-3.7-sonnet
+  editor_edit_format: editor-diff
+  accepts_settings:
+    - thinking_tokens
+
+- name: openrouter/cohere/command-a-03-2025
+  examples_as_sys_msg: true
+
+- name: openrouter/deepseek/deepseek-chat
+  edit_format: diff
+  use_repo_map: true
+  reminder: sys
+  examples_as_sys_msg: true
+
 - name: openrouter/deepseek/deepseek-coder
   edit_format: diff
   use_repo_map: true
@@ -157,11 +178,6 @@
   use_temperature: false
   editor_model_name: openrouter/deepseek/deepseek-chat
   editor_edit_format: editor-diff
-
-- name: openrouter/google/gemini-2.5-pro-exp-03-25:free
-  edit_format: diff-fenced
-  weak_model_name: openrouter/google/gemini-2.0-flash-exp:free
-  use_repo_map: true
 
 - name: openrouter/google/gemma-3-27b-it
   use_system_prompt: false
@@ -236,11 +252,6 @@
   accepts_settings:
   - reasoning_effort
 
-- name: openrouter/openrouter/quasar-alpha
-  edit_format: diff
-  use_repo_map: true
-  examples_as_sys_msg: true
-
 - name: openrouter/qwen/qwen-2.5-coder-32b-instruct
   edit_format: diff
   weak_model_name: openrouter/qwen/qwen-2.5-coder-32b-instruct
@@ -248,6 +259,7 @@
   editor_model_name: openrouter/qwen/qwen-2.5-coder-32b-instruct
   editor_edit_format: editor-diff
 
+########################################################################################################################################################################################################
 # - name: anthropic/claude-3-5-haiku-20241022
 #   edit_format: diff
 #   weak_model_name: anthropic/claude-3-5-haiku-20241022
