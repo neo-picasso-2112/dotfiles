@@ -13,7 +13,7 @@ set mouse=a "Allow to use mouse in the editor
 set cursorline
 
 "Vim plugin manager settings. Run :PlugInstall in Vim to install plugins
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-plug'
 Plug 'vim-syntastic/syntastic'
 Plug 'nvie/vim-flake8'

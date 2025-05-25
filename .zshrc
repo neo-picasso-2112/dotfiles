@@ -31,7 +31,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "powerlevel10k/powerlevel10k" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -83,7 +83,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
+# Standard plugins can be found in $ZSH/plugins/ i.e. ~/.oh-my-zsh/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
@@ -92,7 +92,8 @@ plugins=(vi-mode zsh-syntax-highlighting zsh-autosuggestions web-search fzf ) # 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
+export PATH="$HOME/bin:$PATH" # This is so that our custom tooling symlinked to this location will be recognised.
+export LSCOLORS="GxFxCxDxBxegedabagaced"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -120,12 +121,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias python=python3.12
-
-
-source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+alias ls='ls -G'
+alias brain='cd ~/repos/second-brain'
 
 # # fzf configuration
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
+
+# Source Powerlevel10k theme
+source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme

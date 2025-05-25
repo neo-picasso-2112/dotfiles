@@ -1,3 +1,4 @@
+-- Bootstrap lazy.nvim plugin manager. You will rarely edit this file.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -45,7 +46,7 @@ require("lazy").setup({
         -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
-        "tutor",
+        -- "tutor",
         "zipPlugin",
       },
     },

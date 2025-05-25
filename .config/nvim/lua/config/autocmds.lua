@@ -1,6 +1,7 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
---
+-- Common Use: Setting format options on save (Format on Save), highlighting text when you yank (copy) it.
+
 -- Add any additional autocmds here
 -- with `vim.api.nvim_create_autocmd`
 --
