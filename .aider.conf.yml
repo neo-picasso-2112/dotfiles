@@ -1,13 +1,15 @@
 ################3#######
 # Main Model
 
-model: openrouter/deepseek/deepseek-r1
-weak-model: openrouter/google/gemini-2.0-flash-exp:free
+model: gemini/gemini-2.5-pro-preview-05-06
+# openrouter/deepseek/deepseek-r1
+weak-model: gemini/gemini-2.5-flash-preview-04-17
+# openrouter/google/gemini-2.0-flash-exp:free
 
 read:
- - ~/dotfiles/aider_config/CONVENTIONS.md
- - ~/dotfiles/aider_config/guide.md
- - ~/dotfiles/aider_config/NewKnowledgeBase.md
+#  - ~/dotfiles/aider_config/CONVENTIONS.md
+#  - ~/dotfiles/aider_config/guide.md
+#  - ~/dotfiles/aider_config/NewKnowledgeBase.md
 
 
 # Usage: aider --model fast
@@ -15,7 +17,7 @@ alias:
   - "gemini$:openrouter/google/gemini-2.5-pro-exp-03-25:free"
   - "flash:openrouter/google/gemini-2.0-flash-001"
   - "flash$:openrouter/google/gemini-2.0-flash-exp:free"
-  - "gemini:openrouter/google/gemini-2.5-pro-preview-03-25"
+  - "gemini:gemini/gemini-2.5-pro-preview-05-06"
   - "sonnet:openrouter/anthropic/claude-3.7-sonnet"
   - "r1:openrouter/deepseek/deepseek-r1"
   - "deepseekv3:openrouter/deepseek/deepseek-chat-v3-0324"

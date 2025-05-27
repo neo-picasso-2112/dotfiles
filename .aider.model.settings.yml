@@ -20,6 +20,17 @@
   system_prompt_prefix: null
   accepts_settings: null
 
+########################################    MAIN MODEL IN USAGE  ####################################################################################################
+
+- name: gemini/gemini-2.5-pro-preview-05-06
+  edit_format: diff-fenced
+  weak_model_name: gemini/gemini-2.5-flash-preview-04-17
+  use_repo_map: true
+  overeager: false
+
+########################################    OPENROUTER MODELS PLACED ON HOLD  ####################################################################################################
+
+
 - name: openrouter/google/gemini-2.5-pro-exp-03-25:free
   edit_format: diff-fenced
   weak_model_name: openrouter/google/gemini-2.0-flash-exp:free
