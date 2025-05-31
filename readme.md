@@ -47,7 +47,9 @@ Ensure Git is installed on your machine to begin cloning this dotfiles repositor
 For mac users:
 - brew install stow
 
+### Fonts
 
+My preference for fonts when working in nvim is Fantasque Mono, but Jetsbrain Mono font looks beautiful on the terminal configured (Iterm)
 
 ## Setup & Installation
 
@@ -81,5 +83,4 @@ So how do you install `.vimrc` config?
 - In Vim mode, run `:PlugInstall`
 
 This step will provide a basic editor to work with files in Vim.
-
 
