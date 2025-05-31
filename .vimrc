@@ -58,7 +58,7 @@ nnoremap <silent> <C-g> :RG<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$'] "Ignore files in NERDTree
 
 "Default Leader <leader> in Vim is \ backlash. Many users set it to , like this.
-"let mapleader = ",". echo mapleader - should return current leader.
+let mapleader='' "echo mapleader - should return current leader.
 "Empty return means '\' default.
 "Open NERDTree automatically when Vim starts and leave cursor in it.
 "autocmd VimEnter * NERDTree
