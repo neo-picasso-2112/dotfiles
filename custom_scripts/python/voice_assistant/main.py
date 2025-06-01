@@ -35,6 +35,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.live import Live
 from rich.text import Text
+import sounddevice  # Import sounddevice FIRST to initialize PortAudio
 from RealtimeSTT import AudioToTextRecorder
 import logging
 

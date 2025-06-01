@@ -13,13 +13,18 @@ This repository contains two voice assistant implementations:
 ### Running the Applications
 
 ```bash
+# Set up virtual environment (one time)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-minimal.txt
+
 # Run the Speech-to-Text voice transcriber
-./main.py
+python main.py
 # Press Enter to start recording, Enter again to stop
 # Press Ctrl+C to exit
 
 # Run the full voice assistant (reference implementation)
-./reference/main.py
+python reference/main.py
 
 # Voice assistant with conversation ID
 ./reference/main.py --id conversation123

@@ -88,14 +88,21 @@ pip install --force-reinstall -r requirements-minimal.txt
 
 ## Using UV (Alternative Package Manager)
 
-If you prefer UV:
-```bash
-# The main.py script includes UV metadata
-./main.py  # Will auto-install dependencies
+UV can be used but has known issues with PyAudio on macOS:
 
-# Note: May have architecture issues on some systems
-# In that case, use the virtual environment method above
+```bash
+# UV will create its own isolated environment
+uv run main.py
+
+# If you encounter PyAudio import errors, use the virtual environment method instead
 ```
+
+**Known Issues with UV:**
+- PyAudio may fail with `_PaMacCore_SetupChannelMap` symbol errors
+- Architecture mismatches on Apple Silicon Macs
+- UV creates separate environments that may conflict with system libraries
+
+**Recommendation**: Use the virtual environment method for reliability.
 
 ## Verifying Installation
 
