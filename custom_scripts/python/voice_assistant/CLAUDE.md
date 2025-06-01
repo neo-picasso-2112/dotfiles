@@ -13,10 +13,12 @@ This repository contains two voice assistant implementations:
 ### Running the Applications
 
 ```bash
-# Run the simple TTS demo
+# Run the Speech-to-Text voice transcriber
 ./main.py
+# Press Enter to start recording, Enter again to stop
+# Press Ctrl+C to exit
 
-# Run the full voice assistant
+# Run the full voice assistant (reference implementation)
 ./reference/main.py
 
 # Voice assistant with conversation ID
@@ -24,6 +26,21 @@ This repository contains two voice assistant implementations:
 
 # Voice assistant with initial prompt
 ./reference/main.py --prompt "Create a Python hello world script"
+```
+
+### Running Tests
+
+```bash
+# Create virtual environment and install dependencies
+python3 -m venv .venv
+source .venv/bin/activate
+pip install pytest rich numpy
+
+# Run all tests
+pytest tests/ -v
+
+# Run specific test file
+pytest tests/test_voice_transcriber.py -v
 ```
 
 ### Development Requirements
@@ -35,10 +52,12 @@ This repository contains two voice assistant implementations:
 ## Architecture
 
 ### Current Implementation (main.py)
-- Uses inline UV script dependencies
-- Generates content via Gemini AI and converts to speech
-- Helper module provides audio playback utilities
-- Audio format: 24kHz, mono, 16-bit PCM
+- Real-time Speech-to-Text using RealtimeSTT library
+- Interactive CLI interface with rich formatting
+- Continuous recording loop with Enter to start/stop
+- Real-time transcription display during recording
+- Uses Whisper model (tiny.en) for fast performance
+- Previous TTS functionality commented out for future integration
 
 ### Reference Implementation (reference/main.py)
 - Full voice interaction loop with trigger words ("goose", "cloud", "sonny")

@@ -1,0 +1,40 @@
+2025-06-02 02:16:30.781 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:16:30.793 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2025-06-02 02:16:30.803 - RealTimeSTT: realtimestt - INFO - Initializing faster_whisper realtime transcription model tiny.en, default device: cpu, compute type: float32, device index: 0, download root: None
+2025-06-02 02:16:32.243 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:16:32.247 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:16:32.253 - RealTimeSTT: realtimestt - DEBUG - Starting audio data worker with target_sample_rate=16000, buffer_size=512, input_device_index=None
+2025-06-02 02:16:32.253 - RealTimeSTT: realtimestt - DEBUG - Creating PyAudio interface...
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - No device index supplied; using default device 1
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Retrieving highest sample rate for device index 1: {'index': 1, 'structVersion': 2, 'name': 'MacBook Pro Microphone', 'hostApi': 0, 'maxInputChannels': 1, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.05235416666666667, 'defaultLowOutputLatency': 0.01, 'defaultHighInputLatency': 0.0616875, 'defaultHighOutputLatency': 0.1, 'defaultSampleRate': 48000.0}
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Highest supported sample rate for device index 1 is 48000
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Sample rates to try for device 1: [16000, 48000]
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Attempting to initialize audio stream at 16000 Hz.
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Found 4 total audio devices on the system.
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Available input devices with input channels: [1, 3]
+2025-06-02 02:16:32.339 - RealTimeSTT: realtimestt - DEBUG - Validating device index 1 with info: {'index': 1, 'structVersion': 2, 'name': 'MacBook Pro Microphone', 'hostApi': 0, 'maxInputChannels': 1, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.05235416666666667, 'defaultLowOutputLatency': 0.01, 'defaultHighInputLatency': 0.0616875, 'defaultHighOutputLatency': 0.1, 'defaultSampleRate': 48000.0}
+2025-06-02 02:16:57.423 - RealTimeSTT: realtimestt - DEBUG - Faster_whisper realtime speech to text transcription model initialized successfully
+2025-06-02 02:16:57.423 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2025-06-02 02:16:57.423 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2025-06-02 02:17:00.284 - RealTimeSTT: realtimestt - DEBUG - Device index 1 successfully validated.
+2025-06-02 02:17:00.285 - RealTimeSTT: realtimestt - DEBUG - Opening stream with device index 1, sample_rate=16000, chunk_size=1024
+2025-06-02 02:17:00.359 - RealTimeSTT: realtimestt - INFO - Microphone connected and validated (device index: 1, sample rate: 16000, chunk size: 1024)
+2025-06-02 02:17:00.360 - RealTimeSTT: realtimestt - DEBUG - Audio recording initialized successfully at 16000 Hz, reading 1024 frames at a time
+2025-06-02 02:17:01.470 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:02.494 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:03.521 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:04.543 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:05.570 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:06.593 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:17:07.023 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2025-06-02 02:17:07.024 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2025-06-02 02:17:07.024 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2025-06-02 02:17:07.024 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2025-06-02 02:17:07.025 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2025-06-02 02:17:07.025 - RealTimeSTT: realtimestt - DEBUG - Finishing recording thread
+2025-06-02 02:17:07.025 - RealTimeSTT: realtimestt - DEBUG - Terminating reader process
+2025-06-02 02:17:07.091 - RealTimeSTT: realtimestt - DEBUG - Receive from stdout pipe
+2025-06-02 02:17:07.092 - RealTimeSTT: realtimestt - INFO - None
+2025-06-02 02:17:17.027 - RealTimeSTT: realtimestt - WARNING - Reader process did not terminate in time. Terminating forcefully.
+2025-06-02 02:17:17.028 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
+2025-06-02 02:17:17.035 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread
