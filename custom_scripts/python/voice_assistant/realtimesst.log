@@ -38,3 +38,46 @@
 2025-06-02 02:17:17.027 - RealTimeSTT: realtimestt - WARNING - Reader process did not terminate in time. Terminating forcefully.
 2025-06-02 02:17:17.028 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
 2025-06-02 02:17:17.035 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread
+2025-06-02 02:25:22.461 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:25:22.471 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2025-06-02 02:25:22.480 - RealTimeSTT: realtimestt - INFO - Initializing faster_whisper realtime transcription model tiny.en, default device: cpu, compute type: float32, device index: 0, download root: None
+2025-06-02 02:25:23.932 - RealTimeSTT: realtimestt - DEBUG - Faster_whisper realtime speech to text transcription model initialized successfully
+2025-06-02 02:25:23.932 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2025-06-02 02:25:23.932 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2025-06-02 02:25:24.427 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2025-06-02 02:25:24.428 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2025-06-02 02:25:24.428 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2025-06-02 02:25:25.363 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2025-06-02 02:25:25.364 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2025-06-02 02:28:12.905 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:28:12.916 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2025-06-02 02:28:12.926 - RealTimeSTT: realtimestt - INFO - Initializing faster_whisper realtime transcription model tiny.en, default device: cpu, compute type: float32, device index: 0, download root: None
+2025-06-02 02:28:14.251 - RealTimeSTT: realtimestt - DEBUG - Faster_whisper realtime speech to text transcription model initialized successfully
+2025-06-02 02:28:14.251 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2025-06-02 02:28:14.251 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2025-06-02 02:28:14.474 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:28:14.478 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-02 02:28:14.483 - RealTimeSTT: realtimestt - DEBUG - Starting audio data worker with target_sample_rate=16000, buffer_size=512, input_device_index=None
+2025-06-02 02:28:14.483 - RealTimeSTT: realtimestt - DEBUG - Creating PyAudio interface...
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - No device index supplied; using default device 1
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Retrieving highest sample rate for device index 1: {'index': 1, 'structVersion': 2, 'name': 'MacBook Pro Microphone', 'hostApi': 0, 'maxInputChannels': 1, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.05235416666666667, 'defaultLowOutputLatency': 0.01, 'defaultHighInputLatency': 0.0616875, 'defaultHighOutputLatency': 0.1, 'defaultSampleRate': 48000.0}
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Highest supported sample rate for device index 1 is 48000
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Sample rates to try for device 1: [16000, 48000]
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Attempting to initialize audio stream at 16000 Hz.
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Found 4 total audio devices on the system.
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Available input devices with input channels: [1, 3]
+2025-06-02 02:28:14.545 - RealTimeSTT: realtimestt - DEBUG - Validating device index 1 with info: {'index': 1, 'structVersion': 2, 'name': 'MacBook Pro Microphone', 'hostApi': 0, 'maxInputChannels': 1, 'maxOutputChannels': 0, 'defaultLowInputLatency': 0.05235416666666667, 'defaultLowOutputLatency': 0.01, 'defaultHighInputLatency': 0.0616875, 'defaultHighOutputLatency': 0.1, 'defaultSampleRate': 48000.0}
+2025-06-02 02:28:14.755 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2025-06-02 02:28:14.755 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2025-06-02 02:28:14.755 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2025-06-02 02:28:14.818 - RealTimeSTT: realtimestt - DEBUG - Device index 1 successfully validated.
+2025-06-02 02:28:14.818 - RealTimeSTT: realtimestt - DEBUG - Opening stream with device index 1, sample_rate=16000, chunk_size=1024
+2025-06-02 02:28:14.885 - RealTimeSTT: realtimestt - INFO - Microphone connected and validated (device index: 1, sample rate: 16000, chunk size: 1024)
+2025-06-02 02:28:14.885 - RealTimeSTT: realtimestt - DEBUG - Audio recording initialized successfully at 16000 Hz, reading 1024 frames at a time
+2025-06-02 02:28:15.999 - RealTimeSTT: realtimestt - DEBUG - _audio_data_worker writing audio data into queue.
+2025-06-02 02:28:16.086 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2025-06-02 02:28:16.086 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2025-06-02 02:28:16.087 - RealTimeSTT: realtimestt - DEBUG - Finishing recording thread
+2025-06-02 02:28:16.094 - RealTimeSTT: realtimestt - DEBUG - Terminating reader process
+2025-06-02 02:28:16.458 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
+2025-06-02 02:28:16.458 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread
