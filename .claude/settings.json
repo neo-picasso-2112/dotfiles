@@ -1,8 +1,32 @@
 {
-    "env": {
-        "CLAUDE_CODE_USE_BEDROCK": 1,
-        "ANTHROPIC_MODEL": "apac.anthropic.claude-sonnet-4-20250514-v1:0",
-        "ANTHROPIC_SMALL_FAST_MODEL": "apac.anthropic.claude-3.5-haiku-20241022-v1:0",
-        "AWS_REGION": "ap-southeast-2"
+    "includeCoAuthoredBy": false,
+    "permissions": {
+        "allow": [
+            "Bash(git status)",
+            "Bash(git diff)",
+            "Bash(git log)",
+            "Bash(git add *)",
+            "Bash(git commit *)",
+            "Bash(python *)",
+            "Bash(pip install *)",
+            "Bash(make *)",
+            "Bash(cargo build)",
+            "Bash(cargo test)",
+            "Bash(cargo run)",
+            "Bash(rg *)",
+            "Bash(ls *)",
+            "Bash(cd *)",
+            "WebFetch(domain:docs.anthropic.com)",
+            "WebFetch(domain:github.com)",
+            "WebFetch(domain:stackoverflow.com)",
+            "WebSearch"
+        ],
+        "deny": [
+            "Bash(rm -rf /)",
+            "Bash(sudo rm -rf *)",
+            "Bash(curl * | sh)",
+            "Bash(wget * | sh)",
+            "Bash(eval *)"
+        ]
     }
 }
