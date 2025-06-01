@@ -22,23 +22,30 @@ export GOOGLE_API_KEY=your_api_key_here
 
 ## Running the Application
 
-### Recommended Method: Using Virtual Environment
+### Method 1: Using UV (Recommended - handles dependencies automatically)
 ```bash
-# One-time setup
-source .venv/bin/activate
+# Set your API key
 export GOOGLE_API_KEY=your_api_key_here
 
-# Run the application
-python main.py
-```
-
-### Alternative: Using UV (Note: May have compatibility issues)
-```bash
-# UV creates its own isolated environment
+# Run with UV (handles all dependencies and architecture issues)
 uv run main.py
+
+# Or make it executable and run directly
+chmod +x main.py
+./main.py
 ```
 
-**Note**: UV may encounter PortAudio/PyAudio issues on macOS. If you see import errors, use the virtual environment method instead.
+### Method 2: Using Python directly (requires manual setup)
+```bash
+# If you prefer using python directly, you need to ensure correct architecture
+# For Apple Silicon Macs:
+arch -arm64 python3 main.py
+
+# For Intel Macs:
+arch -x86_64 python3 main.py
+```
+
+**Note**: UV automatically handles architecture compatibility and dependencies, making it the most reliable method.
 
 ## Usage
 

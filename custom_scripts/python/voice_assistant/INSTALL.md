@@ -1,35 +1,49 @@
 # Installation Guide
 
-## Quick Start (Recommended)
+## Quick Start (Recommended - Using UV)
 
-### Using pip with pyproject.toml
+UV automatically handles dependencies and architecture compatibility:
+
 ```bash
 # Clone the repository
 git clone https://github.com/neo-picasso-2112/dotfiles.git
 cd dotfiles/custom_scripts/python/voice_assistant
 
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# Install UV if you don't have it
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install the package
-pip install -e .
+# Run the application (UV handles everything)
+uv run main.py
 
-# For development
-pip install -e ".[dev]"
+# Or make it executable
+chmod +x main.py
+./main.py
 ```
 
-### Using requirements.txt (Alternative)
+## Alternative: Manual Installation
+
+If you prefer traditional pip installation:
+
+### Using pip with pyproject.toml
+```bash
+# Create virtual environment with correct architecture
+# For Apple Silicon:
+arch -arm64 python3 -m venv .venv
+# For Intel:
+arch -x86_64 python3 -m venv .venv
+
+source .venv/bin/activate
+pip install -e .
+```
+
+### Using requirements.txt
 ```bash
 # Create virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
-# Install minimal dependencies
+# Install dependencies
 pip install -r requirements-minimal.txt
-
-# OR install exact frozen dependencies
-pip install -r requirements.txt
 ```
 
 ## Architecture-Specific Notes
@@ -86,23 +100,14 @@ If imports fail:
 pip install --force-reinstall -r requirements-minimal.txt
 ```
 
-## Using UV (Alternative Package Manager)
+## Why UV Works Best
 
-UV can be used but has known issues with PyAudio on macOS:
-
-```bash
-# UV will create its own isolated environment
-uv run main.py
-
-# If you encounter PyAudio import errors, use the virtual environment method instead
-```
-
-**Known Issues with UV:**
-- PyAudio may fail with `_PaMacCore_SetupChannelMap` symbol errors
-- Architecture mismatches on Apple Silicon Macs
-- UV creates separate environments that may conflict with system libraries
-
-**Recommendation**: Use the virtual environment method for reliability.
+UV is the recommended method because it:
+- Automatically handles architecture compatibility (x86_64 vs ARM64)
+- Manages dependencies in isolated environments
+- Resolves PyAudio/PortAudio issues automatically
+- Works consistently across different macOS versions
+- No manual virtual environment setup required
 
 ## Verifying Installation
 
