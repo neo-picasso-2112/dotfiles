@@ -1,32 +1,32 @@
 {
-    "includeCoAuthoredBy": false,
-    "permissions": {
-        "allow": [
-            "Bash(git status)",
-            "Bash(git diff)",
-            "Bash(git log)",
-            "Bash(git add *)",
-            "Bash(git commit *)",
-            "Bash(python *)",
-            "Bash(pip install *)",
-            "Bash(make *)",
-            "Bash(cargo build)",
-            "Bash(cargo test)",
-            "Bash(cargo run)",
-            "Bash(rg *)",
-            "Bash(ls *)",
-            "Bash(cd *)",
-            "WebFetch(domain:docs.anthropic.com)",
-            "WebFetch(domain:github.com)",
-            "WebFetch(domain:stackoverflow.com)",
-            "WebSearch"
-        ],
-        "deny": [
-            "Bash(rm -rf /)",
-            "Bash(sudo rm -rf *)",
-            "Bash(curl * | sh)",
-            "Bash(wget * | sh)",
-            "Bash(eval *)"
-        ]
-    }
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git log)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(python *)",
+      "Bash(pip install *)",
+      "Bash(make *)",
+      "Bash(cargo build)",
+      "Bash(cargo test)",
+      "Bash(cargo run)",
+      "Bash(rg *)",
+      "Bash(ls *)",
+      "Bash(cd *)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo rm -rf *)",
+      "Bash(curl * | sh)",
+      "Bash(wget * | sh)",
+      "Bash(eval *)"
+    ]
+  }
 }
