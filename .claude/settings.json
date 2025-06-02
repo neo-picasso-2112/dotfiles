@@ -19,7 +19,12 @@
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:stackoverflow.com)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
+      ]
+    }
+  }
     ],
     "deny": [
       "Bash(rm -rf /)",
