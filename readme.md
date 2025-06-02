@@ -15,6 +15,16 @@ These instructions are meant to be used on Mac. Instructions for terminal setup 
 As of 2025, we are using `gruvbox` which is a retro Vim theme with [font fantasque-sans](https://github.com/belluzj/fantasque-sans).
 This is configured by installing `gruvbox` within the `.vimrc` file. Fonts and background can be edited in Iterm2 settings.
 
+## MCP Servers for Claude Code
+
+To enhance Claude Code with additional capabilities, you can install MCP (Model Context Protocol) servers:
+
+```bash
+claude mcp add context7 -s user -- npx -y @upstash/context7-mcp
+```
+
+This command installs the Context7 MCP server which provides additional context management features for Claude Code.
+
 ## Some notes
 
 Your home directory needs to exactly match the folder structure on ~/dotfiles directory.
