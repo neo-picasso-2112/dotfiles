@@ -1,1 +1,1 @@
-Always commit code frequently for medium to large size changes
+Always commit code often for medium-large size changes.
