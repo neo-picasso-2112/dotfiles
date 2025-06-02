@@ -1,6 +1,6 @@
 # My Dotfiles
 
-Contains configurations for my system.
+Contains configurations for my system. 
 
 ## Terminal Setup
 
