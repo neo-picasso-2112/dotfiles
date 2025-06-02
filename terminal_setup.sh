@@ -75,5 +75,29 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "Installed vim plug!"
 
+# Install Node.js if not already installed (required for Claude Code)
+if ! command_exists node; then
+  echo "Installing Node.js..."
+  brew install node
+else
+  echo "Node.js is already installed."
+fi
+
+# Install Claude Code CLI if not already installed
+if ! command_exists claude; then
+  echo "Installing Claude Code CLI..."
+  npm install -g @anthropic/claude-cli
+else
+  echo "Claude Code CLI is already installed."
+fi
+
+# Install ccusage if not already installed
+if ! command_exists ccusage; then
+  echo "Installing ccusage..."
+  npm install -g ccusage
+else
+  echo "ccusage is already installed."
+fi
+
 #### EXPORT
 export PATH="$HOME/bin:$PATH"
