@@ -1,119 +1,133 @@
 # Installation Guide
 
-## Quick Start (Recommended - Using UV)
+This guide covers setting up the Voice Assistant application.
 
-UV automatically handles dependencies and architecture compatibility:
+## Prerequisites
 
-```bash
-# Clone the repository
-git clone https://github.com/neo-picasso-2112/dotfiles.git
-cd dotfiles/custom_scripts/python/voice_assistant
+-   Python 3.9+
+-   `git` (for cloning the repository)
+-   On macOS, [Homebrew](https://brew.sh/) is recommended for installing `portaudio`.
 
-# Install UV if you don't have it
-curl -LsSf https://astral.sh/uv/install.sh | sh
+## Installation Steps
 
-# Run the application (UV handles everything)
-uv run main.py
+1.  **Clone the Repository (if you haven't already):**
+    ```bash
+    git clone https://github.com/neo-picasso-2112/dotfiles.git
+    cd dotfiles/custom_scripts/python/voice_assistant
+    ```
 
-# Or make it executable
-chmod +x main.py
-./main.py
-```
+2.  **Create and Activate a Virtual Environment:**
+    This isolates project dependencies.
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate  # On macOS/Linux
+    # .\.venv\Scripts\activate  # On Windows
+    ```
 
-## Alternative: Manual Installation
+3.  **Install Dependencies:**
+    The project uses `pyproject.toml` for dependency management.
 
-If you prefer traditional pip installation:
+    *   **Method 1: Using `uv` (Recommended)**
+        `uv` is a fast Python package installer. If you don't have `uv`, install it:
+        ```bash
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        # Or via pipx: pipx install uv
+        ```
+        Then, install dependencies:
+        ```bash
+        uv pip install -e .
+        # This installs the project in editable mode and its dependencies.
+        # Alternatively, `uv sync` can be used if you only want to install dependencies
+        # specified in pyproject.toml and uv.lock without installing the project itself.
+        ```
 
-### Using pip with pyproject.toml
-```bash
-# Create virtual environment with correct architecture
-# For Apple Silicon:
-arch -arm64 python3 -m venv .venv
-# For Intel:
-arch -x86_64 python3 -m venv .venv
+    *   **Method 2: Using `pip`**
+        ```bash
+        pip install -e .
+        ```
+        This installs the project in editable mode and its dependencies (`rich`, `SpeechRecognition`, `PyAudio`, `python-dotenv`, `google-genai`).
 
-source .venv/bin/activate
-pip install -e .
-```
+4.  **macOS Specific: Install `portaudio` for `PyAudio`**
+    `PyAudio` is used for microphone access and on macOS, it often requires `portaudio`.
+    ```bash
+    brew install portaudio
+    ```
+    If `PyAudio` installation failed previously or you encounter runtime issues related to it, try reinstalling it after installing `portaudio`:
+    ```bash
+    pip uninstall PyAudio
+    pip install PyAudio --no-cache-dir
+    ```
 
-### Using requirements.txt
-```bash
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+5.  **Set Google API Key (for future TTS):**
+    The application requires a Google API key to be set for potential future Text-to-Speech (TTS) functionality using Google GenAI.
+    *   Create a `.env` file in the project root (`custom_scripts/python/voice_assistant/.env`):
+        ```
+        GOOGLE_API_KEY=your_google_api_key_here
+        ```
+    *   Or, set it as an environment variable:
+        ```bash
+        export GOOGLE_API_KEY="your_google_api_key_here"
+        ```
 
-# Install dependencies
-pip install -r requirements-minimal.txt
-```
+## Running the Application
+After installation and with the virtual environment activated:
 
-## Architecture-Specific Notes
-
-### macOS Apple Silicon (M1/M2/M3)
-If you encounter architecture issues:
-```bash
-# Install for ARM64
-arch -arm64 pip install --no-cache-dir -r requirements-minimal.txt
-```
-
-### macOS Intel
-If you encounter architecture issues:
-```bash
-# Install for x86_64
-arch -x86_64 pip install --no-cache-dir -r requirements-minimal.txt
-```
-
-## Environment Setup
-
-1. Set your Google API key:
-```bash
-export GOOGLE_API_KEY="your_api_key_here"
-
-# Or create a .env file:
-echo 'GOOGLE_API_KEY=your_api_key_here' > .env
-```
-
-2. Verify installation:
-```bash
-python -c "from RealtimeSTT import AudioToTextRecorder; print('✅ RealtimeSTT installed')"
-python -c "import sounddevice; print('✅ Audio dependencies installed')"
-```
+*   **Using `uv run`:**
+    ```bash
+    uv run ./main.py
+    ```
+*   **Using Python directly:**
+    ```bash
+    python main.py
+    # Or, make main.py executable:
+    # chmod +x main.py
+    # ./main.py
+    ```
+Refer to `README_STT.md` for detailed usage instructions.
 
 ## Troubleshooting
 
-### NumPy Version Conflict
-If you see NumPy-related errors:
-```bash
-pip uninstall numpy
-pip install "numpy<2"
-```
+*   **`GOOGLE_API_KEY not set` error:**
+    Ensure the `GOOGLE_API_KEY` is correctly set in your `.env` file or as an environment variable. The application checks for this key on startup.
 
-### PyAudio Installation Issues
-On macOS, you might need:
-```bash
-brew install portaudio
-pip install --no-cache-dir pyaudio
-```
+*   **`PyAudio` or Microphone Issues on macOS:**
+    *   Confirm `portaudio` is installed (`brew install portaudio`).
+    *   Try reinstalling `PyAudio` as described in Step 4.
+    *   Ensure your terminal application has microphone access permissions (System Settings > Privacy & Security > Microphone).
 
-### Missing Dependencies
-If imports fail:
-```bash
-pip install --force-reinstall -r requirements-minimal.txt
-```
+*   **"No module named 'X'" errors:**
+    Make sure your virtual environment is activated and dependencies were installed correctly using `uv pip install -e .` or `pip install -e .`.
 
-## Why UV Works Best
-
-UV is the recommended method because it:
-- Automatically handles architecture compatibility (x86_64 vs ARM64)
-- Manages dependencies in isolated environments
-- Resolves PyAudio/PortAudio issues automatically
-- Works consistently across different macOS versions
-- No manual virtual environment setup required
+*   **Architecture issues on macOS (less common with `uv` or modern `pip`):**
+    Modern Python and `pip`/`uv` usually handle Apple Silicon (ARM64) vs. Intel (x86_64) automatically. If you suspect an architecture mismatch with manually installed packages, ensure you are using a Python interpreter compiled for your Mac's architecture.
 
 ## Verifying Installation
 
-Run the test suite:
-```bash
-pytest tests/test_voice_transcriber.py tests/test_basic.py -v
-```
+1.  **Basic Dependency Check:**
+    With your virtual environment activated:
+    ```bash
+    python -c "import rich; print('✅ rich installed')"
+    python -c "import speech_recognition; print('✅ SpeechRecognition installed')"
+    python -c "import pyaudio; print('✅ PyAudio installed')"
+    ```
 
-All structural tests should pass (14 tests).
+2.  **Run the Test Suite:**
+    Install test dependencies if you haven't:
+    ```bash
+    pip install -e ".[test]"
+    # or with uv:
+    # uv pip install -e ".[test]"
+    ```
+    Then run pytest:
+    ```bash
+    pytest -v
+    ```
+    This will execute tests defined in the `tests/` directory.
+
+## Why `uv` is a Good Choice
+-   **Speed:** `uv` is significantly faster for installing and managing packages.
+-   **Dependency Resolution:** Robust dependency resolution.
+-   **`pyproject.toml` Native:** Works seamlessly with `pyproject.toml`.
+-   **Lock Files:** Can use `uv.lock` for highly reproducible environments.
+-   **Integrated Tools:** Combines functionalities of `pip`, `venv`, etc.
+While `pip` is standard, `uv` offers a more modern and efficient experience for many Python development workflows.

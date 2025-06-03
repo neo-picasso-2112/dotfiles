@@ -7,9 +7,10 @@ This document outlines the enhancement of our existing voice assistant to integr
 ## Current State Analysis
 
 ### Existing Architecture
-- **STT**: RealtimeSTT (Whisper-based, local processing)
-- **LLM**: Claude via subprocess (calling `goose` CLI)
-- **TTS**: Gemini 2.5 Flash TTS
+- **STT (main.py)**: `SpeechRecognition` library (using Apple's native STT on macOS).
+- **STT (reference/main.py)**: RealtimeSTT (Whisper-based, local processing) - *This PRD primarily discusses enhancing this path or a similar one.*
+- **LLM (reference/main.py)**: Claude via subprocess (calling `goose` CLI)
+- **TTS (main.py & reference/main.py setup)**: Google GenAI (for future TTS integration)
 - **Flow**: STT → Text → Claude Code → Text → TTS
 
 ### Current Strengths

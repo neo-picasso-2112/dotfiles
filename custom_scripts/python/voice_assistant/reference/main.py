@@ -4,56 +4,55 @@
 # requires-python = ">=3.9"
 # dependencies = [
 #   "RealtimeSTT",
-#   "google-generativeai",
+#   "google-genai>=1.16.0",
 #   "python-dotenv",
 #   "rich",
 #   "numpy",
-#   "sounddevice", # Kept for RealtimeSTT if it uses it, but not for our playback
-#   "soundfile",   # Kept for RealtimeSTT if it uses it, but not for our playback
+#   "sounddevice", # Used by helper.play_audio
 #   "markdown",
-#   "PyAudio",     # Added for streaming playback
 # ]
 # ///
 
 """
 
-# Voice to AI Assistant (Goose AI)
+# Voice to Claude Code
 
-A voice-enabled AI assistant that allows you to interact with Goose AI using voice commands.
-This tool combines RealtimeSTT for speech recognition and Gemini 2.5 Flash for speech output.
+A voice-enabled Claude Code assistant that allows you to interact with Claude Code using voice commands.
+This tool combines RealtimeSTT for speech recognition and Google GenAI TTS for speech output.
 
 ## Features
 - Real-time speech recognition using RealtimeSTT
-- Goose AI integration for programmable AI interaction
-- Text-to-speech responses using Gemini 2.5 Flash TTS
+- Claude Code integration for programmable AI coding
+- Text-to-speech responses using Google GenAI TTS
 - Conversation history tracking
 - Voice trigger activation
 
+
 ## Requirements
-- Google API key (for Gemini models and TTS)
+- Google API key (for TTS and text processing)
+- Anthropic API key (for Claude Code)
 - Python 3.9+
 - UV package manager (for dependency management)
 
 ## Usage
 Run the script:
 ```bash
-./main.py
+./reference/main.py
 ```
 
-Speak to the assistant using the trigger word (e.g., "goose" - configurable) in your query.
-For example: "Hey goose, create a simple hello world script"
+Speak to the assistant using the trigger word "claude" in your query.
+For example: "Hey claude, create a simple hello world script"
 
 Press Ctrl+C to exit.
 """
 
 import os
 import sys
-import json
 import yaml
 import uuid
 import asyncio
+import tempfile
 import subprocess
-import pyaudio
 import numpy as np
 import argparse
 from typing import List, Dict, Any, Optional, Union
@@ -64,19 +63,24 @@ from rich.markdown import Markdown
 from rich.logging import RichHandler
 from rich.syntax import Syntax
 from dotenv import load_dotenv
-import google.generativeai as genai
-from google.genai import types as genai_types # Alias to avoid conflict if 'types' is used elsewhere
+from google import genai
+from google.genai import types as genai_types
+from .helper import play_audio # For Google TTS playback, now a relative import
 from RealtimeSTT import AudioToTextRecorder
 import logging
 
 # Configuration - default values
-TRIGGER_WORDS = ["goose", "cloud", "sonny"]  # List of possible trigger words
+TRIGGER_WORDS = ["claude", "cloud", "sonnet", "sonny"]  # List of possible trigger words
 STT_MODEL = "small.en"  # Options: tiny.en, base.en, small.en, medium.en, large-v2
-TTS_VOICE = "Kore"  # Updated default voice as per sample (e.g., 'Kore', 'Echo-F', etc.)
-TTS_MODEL_NAME = "gemini-2.5-flash-preview-tts" # Using the latest model from sample
-TTS_SAMPLE_RATE = 24000  # Gemini TTS typically outputs at 24kHz
-TTS_CHANNELS = 1         # Mono audio
-TTS_FORMAT = pyaudio.paInt16 # 16-bit PCM
+DEFAULT_CLAUDE_TOOLS = [
+    "Bash",
+    "Edit",
+    "Write",
+    "GlobTool",
+    "GrepTool",
+    "LSTool",
+    "Replace",
+]
 
 # Prompt templates
 COMPRESS_PROMPT = """
@@ -86,22 +90,22 @@ while preserving all key information. Focus only on the most important details.
 Be brief but clear, as this will be spoken aloud.
 
 IMPORTANT HANDLING FOR CODE BLOCKS:
-- Do not include full code blocks in your response
-- Instead, briefly mention "I've created code for X" or "Here's a script that does Y"
-- For large code blocks, just say something like "I've written a Python function that handles user authentication"
-- DO NOT attempt to read out the actual code syntax
-- Only describe what the code does in 1 sentences maximum
+- Do not include full code blocks in your response.
+- Instead, briefly mention "I've created code for X" or "Here's a script that does Y".
+- For large code blocks, just say something like "I've written a Python function that handles user authentication".
+- DO NOT attempt to read out the actual code syntax.
+- Only describe what the code does in 1 sentence maximum.
 
-Original text:
+Original text to compress:
 {text}
 
-Return only the compressed text, without any explanation or introduction.
+Return only the compressed text, without any explanation or introduction. Make it conversational for voice output.
 """
 
-LLM_PROMPT = """
-# Voice-Enabled AI Assistant (Goose AI)
+CLAUDE_PROMPT = """
+# Voice-Enabled Claude Code Assistant
 
-You are a helpful assistant (Goose AI) that's being used via voice commands. Execute the user's request.
+You are a helpful assistant that's being used via voice commands. Execute the user's request using your tools.
 
 When asked to read files, return the entire file content.
 
@@ -110,8 +114,6 @@ When asked to read files, return the entire file content.
 Now help the user with their latest request.
 """
 
-GOOSE_BUILTIN_TOOLS="developer,git"
-
 # Initialize logging
 logging.basicConfig(
     level=logging.INFO,
@@ -119,7 +121,7 @@ logging.basicConfig(
     datefmt="[%X]",
     handlers=[RichHandler(rich_tracebacks=True)],
 )
-log = logging.getLogger("voice_ai_assistant")
+log = logging.getLogger("claude_code_assistant")
 
 # Suppress RealtimeSTT logs and all related loggers
 logging.getLogger("RealtimeSTT").setLevel(logging.ERROR)
@@ -128,8 +130,8 @@ logging.getLogger("faster_whisper").setLevel(logging.ERROR)
 logging.getLogger("audio_recorder").setLevel(logging.ERROR)
 logging.getLogger("whisper").setLevel(logging.ERROR)
 logging.getLogger("faster_whisper.transcribe").setLevel(logging.ERROR)
-# OpenAI logger suppressions removed as OpenAI client is no longer used.
-# If google-generativeai library has verbose logging, suppression for its loggers can be added here.
+logging.getLogger("google.generativeai").setLevel(logging.ERROR) # Suppress Google GenAI logs if noisy
+logging.getLogger("httpx").setLevel(logging.WARNING) # httpx is used by google-genai
 
 console = Console()
 
@@ -137,7 +139,7 @@ console = Console()
 load_dotenv()
 
 # Check required environment variables
-required_vars = ["GOOGLE_API_KEY"]
+required_vars = ["ANTHROPIC_API_KEY", "GOOGLE_API_KEY"] # Changed OPENAI_API_KEY to GOOGLE_API_KEY
 missing_vars = [var for var in required_vars if not os.environ.get(var)]
 if missing_vars:
     console.print(
@@ -146,21 +148,19 @@ if missing_vars:
     console.print("Please set these in your .env file or as environment variables.")
     sys.exit(1)
 
-# Initialize Google Gemini client
-genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
-# The 'client' variable (previously OpenAI) is no longer needed globally for these operations.
-# Gemini models will be instantiated as needed in methods like compress_speech and speak.
+# Initialize Google GenAI client (used for compression and TTS)
+google_client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 
 
 
-class VoiceAIAssistant:
+class ClaudeCodeAssistant:
     def __init__(
         self,
         conversation_id: Optional[str] = None,
         initial_prompt: Optional[str] = None,
     ):
-        log.info("Initializing Voice AI Assistant (Goose AI)")
+        log.info("Initializing Claude Code Assistant")
         self.recorder = None
         self.initial_prompt = initial_prompt
 
@@ -315,26 +315,28 @@ class VoiceAIAssistant:
         return result_container["text"]
 
     async def compress_speech(self, text: str) -> str:
-        """Compress the response text to be more concise for speech"""
-        log.info("Compressing response for speech...")
+        """Compress the response text to be more concise for speech using Google GenAI"""
+        log.info("Compressing response for speech using Google GenAI...")
 
         try:
-            # Use the prompt template from the constants
-            prompt = COMPRESS_PROMPT.format(text=text)
+            # Use the prompt template for compression
+            prompt_for_compression = COMPRESS_PROMPT.format(text=text)
 
-            # Call Gemini to compress the text
-            # Ensure the model name is appropriate for text summarization/compression
-            model = genai.GenerativeModel(model_name='gemini-1.5-flash-latest') # Or another suitable Gemini model
-            gemini_response = model.generate_content(prompt)
+            compression_response = google_client.generate_content(
+                model='gemini-2.5-flash-preview-05-20', # Changed to user's preferred model
+                contents=prompt_for_compression, # Sending the full prompt with instructions
+                generation_config=genai_types.GenerationConfig(
+                    temperature=0.2, # Slightly creative for rephrasing
+                    max_output_tokens=1024
+                )
+            )
 
-            # Extract text from Gemini response
-            if hasattr(gemini_response, 'text') and gemini_response.text:
-                compressed_text = gemini_response.text
-            elif gemini_response.candidates and gemini_response.candidates[0].content.parts:
-                 compressed_text = "".join(part.text for part in gemini_response.candidates[0].content.parts if hasattr(part, 'text'))
+            if compression_response.candidates and compression_response.candidates[0].content.parts:
+                compressed_text = "".join(part.text for part in compression_response.candidates[0].content.parts if hasattr(part, 'text'))
             else:
-                log.warning("Gemini compression returned no valid content, using original text.")
-                compressed_text = text # Fallback to original text
+                log.warning("Compression with Gemini failed or returned empty. Using original text.")
+                compressed_text = text
+            
             log.info(
                 f"Compressed response from {len(text)} to {len(compressed_text)} characters"
             )
@@ -357,102 +359,56 @@ class VoiceAIAssistant:
             return compressed_text
 
         except Exception as e:
-            log.error(f"Error compressing speech: {str(e)}")
-            console.print(f"[bold red]Error compressing speech:[/bold red] {str(e)}")
+            log.error(f"Error compressing speech with Google GenAI: {str(e)}", exc_info=True)
+            console.print(f"[bold red]Error compressing speech with Google GenAI:[/bold red] {str(e)}")
             # Return original text if compression fails
             return text
 
     async def speak(self, text: str):
-        """Convert text to speech using Gemini 2.5 Flash TTS"""
-        log.info(f'Speaking: "{text[:50]}..."')
+        """Convert text to speech using Google GenAI TTS"""
+        log.info(f'Preparing to speak using Google TTS: "{text[:50]}..."')
 
         try:
             # Compress text before converting to speech
-            compressed_text = await self.compress_speech(text)
+            compressed_text_for_tts = await self.compress_speech(text)
+            if not compressed_text_for_tts.strip(): # If compression results in empty string, use original
+                log.warning("Compressed text is empty, using original text for TTS.")
+                compressed_text_for_tts = text
 
-            # Initialize PyAudio
-            p = pyaudio.PyAudio()
-            audio_stream = None
-            
-            try:
-                log.info(f"Requesting TTS stream from Gemini model '{TTS_MODEL_NAME}' with voice '{TTS_VOICE}' for: \"{compressed_text[:100]}...\"")
-                
-                tts_model = genai.GenerativeModel(model_name=TTS_MODEL_NAME)
-                tts_config = genai_types.GenerateContentConfig(
+            log.info(f'Generating Google TTS for: "{compressed_text_for_tts[:50]}..."')
+
+            # Generate speech with Google GenAI TTS
+            tts_model_id = "gemini-2.5-flash-preview-tts" # As per your example
+            tts_voice_name = "Sadaltager" # As per your example, can be made configurable
+
+            tts_response = google_client.generate_content(
+                model=tts_model_id,
+                contents=compressed_text_for_tts, # Text to be spoken
+                generation_config=genai_types.GenerationConfig(
                     response_modalities=["AUDIO"],
                     speech_config=genai_types.SpeechConfig(
                         voice_config=genai_types.VoiceConfig(
                             prebuilt_voice_config=genai_types.PrebuiltVoiceConfig(
-                                voice_name=TTS_VOICE,
+                                voice_name=tts_voice_name,
                             )
                         )
-                    ),
+                    )
                 )
-                
-                # Request streaming TTS response
-                response_iterator = tts_model.generate_content(
-                    contents=compressed_text,
-                    generation_config=tts_config,
-                    stream=True
-                )
+            )
 
-                # Open PyAudio stream
-                # The sample rate and format should match Gemini's output.
-                # Gemini TTS typically provides 24kHz, 16-bit PCM.
-                audio_stream = p.open(format=TTS_FORMAT,
-                                      channels=TTS_CHANNELS,
-                                      rate=TTS_SAMPLE_RATE,
-                                      output=True)
-                
-                log.info(f"PyAudio stream opened. Rate: {TTS_SAMPLE_RATE}, Channels: {TTS_CHANNELS}, Format: {TTS_FORMAT}")
+            # Play audio using the helper function
+            play_audio(tts_response) # play_audio handles extraction and playback via sounddevice
 
-                played_any_audio = False
-                start_time = asyncio.get_event_loop().time()
-
-                for chunk_response in response_iterator:
-                    if chunk_response.candidates and chunk_response.candidates[0].content and \
-                       chunk_response.candidates[0].content.parts and \
-                       hasattr(chunk_response.candidates[0].content.parts[0], 'inline_data') and \
-                       hasattr(chunk_response.candidates[0].content.parts[0].inline_data, 'data'):
-                        
-                        audio_chunk_data = chunk_response.candidates[0].content.parts[0].inline_data.data
-                        if audio_chunk_data:
-                            audio_stream.write(audio_chunk_data)
-                            if not played_any_audio:
-                                log.info("Started playing streamed audio.")
-                                played_any_audio = True
-                        else:
-                            log.debug("Received an empty audio chunk.")
-                    else:
-                        log.warning("Received a TTS stream chunk without expected audio data structure.")
-                        log.debug(f"Problematic chunk structure: {str(chunk_response)[:500]}")
-                
-                if not played_any_audio:
-                    log.warning("No audio data was streamed or played from Gemini TTS.")
-                else:
-                    duration = asyncio.get_event_loop().time() - start_time
-                    log.info(f"Finished playing streamed audio (duration: {duration:.2f}s).")
-
-            except Exception as e:
-                log.error(f"Error during Gemini TTS streaming or PyAudio playback: {e}", exc_info=True)
-                # This will be caught by the outer try-except in speak()
-                raise
-            finally:
-                if audio_stream:
-                    audio_stream.stop_stream()
-                    audio_stream.close()
-                    log.info("PyAudio stream stopped and closed.")
-                p.terminate()
-                log.info("PyAudio instance terminated.")
+            log.info(f"Google TTS audio playback initiated for: \"{compressed_text_for_tts[:50]}...\"")
 
         except Exception as e:
-            log.error(f"Error in speech synthesis: {str(e)}")
-            console.print(f"[bold red]Error in speech synthesis:[/bold red] {str(e)}")
+            log.error(f"Error in Google speech synthesis: {str(e)}", exc_info=True)
+            console.print(f"[bold red]Error in Google speech synthesis:[/bold red] {str(e)}")
             # Display the text as fallback
-            console.print(f"[italic yellow]Text:[/italic yellow] {text}")
+            console.print(f"[italic yellow]Fallback Text (TTS failed):[/italic yellow] {text}")
 
     async def process_message(self, message: str) -> Optional[str]:
-        """Process the user message and run Goose AI"""
+        """Process the user message and run Claude Code"""
         log.info(f'Processing message: "{message}"')
 
         # Check for any trigger word in the message
@@ -463,22 +419,20 @@ class VoiceAIAssistant:
         # Add to conversation history
         self.conversation_history.append({"role": "user", "content": message})
 
-        # Prepare the prompt for Goose CLI including conversation history
+        # Prepare the prompt for Claude Code including conversation history
         formatted_history = self.format_conversation_history()
-        prompt = LLM_PROMPT.format(formatted_history=formatted_history)
+        prompt = CLAUDE_PROMPT.format(formatted_history=formatted_history)
 
-        # Execute Goose CLI as a simple subprocess
-        log.info("Starting Goose CLI subprocess...")
+        # Execute Claude Code as a simple subprocess
+        log.info("Starting Claude Code subprocess...")
         cmd = [
-            "goose",
-            "run",
-            "-t",
-            prompt, # 'prompt' here is the fully formatted string from LLM_PROMPT.format(...)
-            "--resume",
-            "--with-builtin", GOOSE_BUILTIN_TOOLS
-        ]
+            "claude",
+            "-p",
+            prompt,
+            "--allowedTools",
+        ] + DEFAULT_CLAUDE_TOOLS
 
-        console.print("\n[bold blue]🔄 Running Goose CLI with tools ({GOOSE_BUILTIN_TOOLS})...[/bold blue]")
+        console.print("\n[bold blue]🔄 Running Claude Code...[/bold blue]")
 
         try:
             # Use simple subprocess.run for synchronous execution
@@ -487,10 +441,10 @@ class VoiceAIAssistant:
             # Get the response
             response = process.stdout
 
-            log.info(f"Goose CLI succeeded, output length: {len(response)}")
+            log.info(f"Claude Code succeeded, output length: {len(response)}")
 
             # Display the response
-            console.print(Panel(title="Goose Response", renderable=Markdown(response)))
+            console.print(Panel(title="Claude Response", renderable=Markdown(response)))
 
             # Add to conversation history
             self.conversation_history.append({"role": "assistant", "content": response})
@@ -501,7 +455,7 @@ class VoiceAIAssistant:
             return response
 
         except subprocess.CalledProcessError as e:
-            error_msg = f"Goose CLI failed with exit code: {e.returncode}"
+            error_msg = f"Claude Code failed with exit code: {e.returncode}"
             log.error(f"{error_msg}\nError: {e.stderr[:500]}...")
 
             error_response = "I'm sorry, but I encountered an error while processing your request. Please try again."
@@ -520,9 +474,9 @@ class VoiceAIAssistant:
 
         console.print(
             Panel.fit(
-                "[bold magenta]🎤 Goose Code Voice Assistant Ready[/bold magenta]\n"
+                "[bold magenta]🎤 Claude Code Voice Assistant Ready (Google GenAI TTS)[/bold magenta]\n"
                 f"Speak to interact. Include one of these trigger words to activate: {', '.join(TRIGGER_WORDS)}.\n"
-                f"The assistant will listen, process with Goose CLI, and respond using voice '{TTS_VOICE}'.\n"
+                f"The assistant will listen, process with Claude Code, and respond using Google GenAI voice.\n" # TTS_VOICE removed
                 f"STT model: {STT_MODEL}\n"
                 f"Conversation ID: {self.conversation_id}\n"
                 f"Saving conversation to: {self.conversation_file}\n"
@@ -572,10 +526,10 @@ class VoiceAIAssistant:
 
 async def main():
     """Main entry point for the assistant"""
-    log.info("Starting Goose Code Voice Assistant")
+    log.info("Starting Claude Code Voice Assistant (Google GenAI TTS)")
 
     # Parse command line arguments
-    parser = argparse.ArgumentParser(description="Voice-enabled Goose Code assistant")
+    parser = argparse.ArgumentParser(description="Voice-enabled Claude Code assistant")
     parser.add_argument(
         "--id",
         "-i",
@@ -591,7 +545,7 @@ async def main():
     args = parser.parse_args()
 
     # Create assistant instance with conversation ID and initial prompt
-    assistant = VoiceAIAssistant(conversation_id=args.id, initial_prompt=args.prompt)
+    assistant = ClaudeCodeAssistant(conversation_id=args.id, initial_prompt=args.prompt)
 
     # Show some helpful information about the conversation
     if args.id:

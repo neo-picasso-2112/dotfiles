@@ -3,13 +3,11 @@
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
-#   "google-genai>=1.16.0", # 1.16 is needed for multi-speaker audio
-#   "sounddevice",
-#   "numpy",
-#   "RealtimeSTT",
-#   "rich",
-#   "PyAudio",
-#   "pytest",  # For running tests
+#   "google-genai>=1.16.0", # For future TTS
+#   "rich>=13.0", # For rich text and UI elements
+#   "python-dotenv>=1.0.0", # For GOOGLE_API_KEY
+#   "SpeechRecognition>=3.8.1", # For speech-to-text
+#   "PyAudio>=0.2.11",          # For microphone access with SpeechRecognition
 # ]
 # ///
 
@@ -28,6 +26,11 @@ Usage:
 """
 
 import os
+# Set environment variables to suppress NumPy 2.x compatibility warnings
+os.environ['NPY_DISABLE_COMPILE_WARNING'] = '1'
+os.environ['DISABLE_PYCACHE'] = '1'
+
+import speech_recognition as sr # Added for speech recognition
 import sys
 import asyncio
 import time
@@ -41,13 +44,14 @@ from rich.table import Table
 from rich.align import Align
 from rich.layout import Layout
 from rich.rule import Rule
-import sounddevice  # Import sounddevice FIRST to initialize PortAudio
-from RealtimeSTT import AudioToTextRecorder
+from dotenv import load_dotenv
 import logging
 
-# Suppress RealtimeSTT debug logs
-logging.getLogger("RealtimeSTT").setLevel(logging.ERROR)
-logging.getLogger("faster_whisper").setLevel(logging.ERROR)
+# Load environment variables
+load_dotenv()
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 
 # Initialize console for rich output
 console = Console()
@@ -74,13 +78,13 @@ def clear_screen():
 def show_welcome_screen():
     """Display the welcome screen with logo and instructions"""
     clear_screen()
-    
+
     # Create the main welcome panel
     welcome_content = Text()
     welcome_content.append("Welcome to the ", style="white")
     welcome_content.append("Voice Assistant", style="bold #FF6B35")
     welcome_content.append(" research preview!", style="white")
-    
+ 
     welcome_panel = Panel(
         Align.center(welcome_content),
         style="#FF6B35",
@@ -128,7 +132,7 @@ def show_interface_header():
     table.add_column(style="white")
     
     table.add_row("•", "Press Enter to start recording")
-    table.add_row("•", "Press Enter again to stop recording") 
+    table.add_row("•", "Stop speaking to finish recording")
     table.add_row("•", "Press Ctrl+C to exit")
     
     instruction_panel = Panel(
@@ -142,12 +146,7 @@ def show_interface_header():
     console.print(instruction_panel)
     console.print()
 
-# Check for required environment variable (keeping for future TTS integration)
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-if not GOOGLE_API_KEY:
-    console.print("[bold red]Error: GOOGLE_API_KEY environment variable not set.[/bold red]")
-    console.print("Please set it in your .env file or as an environment variable.")
-    sys.exit(1)
+# Will check for required environment variable in main() function
 
 # Previous TTS code (commented out as requested)
 """
@@ -193,126 +192,164 @@ play_audio(response)
 
 
 class VoiceTranscriber:
-    """Handles real-time audio recording and transcription"""
-    
+    """Handles real-time audio recording and transcription using SpeechRecognition"""
+
     def __init__(self):
-        """Initialize the voice transcriber with RealtimeSTT"""
-        # Show initialization status
+        """Initialize the voice transcriber with SpeechRecognition"""
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             console=console
         ) as progress:
-            task = progress.add_task("Initializing Voice Transcriber...", total=None)
-            
-            # Initialize the recorder with optimized settings for real-time transcription
-            self.recorder = AudioToTextRecorder(
-                model="tiny.en",  # Fast model for real-time performance
-                language="en",
-                compute_type="float32",
-                enable_realtime_transcription=True,
-                realtime_model_type="tiny.en",
-                post_speech_silence_duration=0.8,
-                realtime_processing_pause=0.2,
-                on_realtime_transcription_update=self._on_realtime_update,
-                spinner=False,
-                print_transcription_time=False,
-            )
-            
-            progress.update(task, description="Voice Transcriber ready!")
-            time.sleep(0.5)  # Brief pause to show completion
-        
-        self.current_text = ""
-        self.is_recording = False
-        
-        # Success message
-        success_panel = Panel(
-            Text("✅ Voice Transcriber initialized successfully!", style="bold green"),
-            style="green",
-            padding=(0, 2)
-        )
-        console.print(success_panel)
-        console.print()
-    
-    def _on_realtime_update(self, text: str):
-        """Handle real-time transcription updates"""
-        self.current_text = text
-        # Clear line and update with new text with better formatting
-        sys.stdout.write('\r' + ' ' * 100 + '\r')  # Clear line
-        
-        # Format the recording text with color codes
-        recording_text = f"\033[1;33m🎤 Recording: \033[0m\033[1;37m{text}\033[0m"
-        sys.stdout.write(recording_text)
-        sys.stdout.flush()
-    
-    def listen(self) -> str:
-        """
-        Record audio and return the transcribed text
-        
-        Returns:
-            str: The transcribed text from the audio
-        """
-        self.is_recording = True
-        self.current_text = ""
-        
-        # Show recording status panel
-        recording_panel = Panel(
-            Text("🎤 Recording... (Press Enter to stop)", style="bold yellow"),
-            style="yellow",
-            padding=(0, 2)
-        )
-        console.print(recording_panel)
-        
-        # Variable to store the final transcription
-        final_text = ""
-        
-        def process_text(text: str):
-            """Callback for when recording is complete"""
-            nonlocal final_text
-            final_text = text
-            if text:
-                # Clear the recording line
-                sys.stdout.write('\r' + ' ' * 100 + '\r')
-                sys.stdout.flush()
+            task = progress.add_task("Initializing Speech Recognizer...", total=None)
+            try:
+                self.recognizer = sr.Recognizer()
+                self.microphone = sr.Microphone()
+                with self.microphone as source:
+                    console.print(Panel(
+                        Text("🎙️  Adjusting for ambient noise, please wait...", style="yellow"),
+                        style="yellow",
+                        padding=(0, 2)
+                    ))
+                    # Listen for 1 second to adjust the energy threshold for ambient noise levels
+                    self.recognizer.adjust_for_ambient_noise(source, duration=1)
                 
-                # Show completion status
-                completion_panel = Panel(
-                    Text("✅ Transcription complete", style="bold green"),
+                progress.update(task, description="Speech Recognizer ready!")
+                time.sleep(0.5)
+                success_panel = Panel(
+                    Text("✅ Voice Assistant ready! Press Enter to speak.", style="bold green"),
                     style="green",
                     padding=(0, 2)
                 )
-                console.print(completion_panel)
-        
-        # Start recording with callback
-        self.recorder.text(process_text)
-        
-        self.is_recording = False
-        return final_text
-    
-    def shutdown(self):
-        """Shutdown the recorder and clean up resources"""
-        if hasattr(self, 'recorder') and self.recorder:
-            try:
-                with Progress(
-                    SpinnerColumn(),
-                    TextColumn("[progress.description]{task.description}"),
-                    console=console
-                ) as progress:
-                    task = progress.add_task("Shutting down recorder...", total=None)
-                    self.recorder.shutdown()
-                    progress.update(task, description="Recorder shutdown complete")
-                    time.sleep(0.3)
+                console.print(success_panel)
+                console.print()
+
             except Exception as e:
+                progress.update(task, description="Error initializing Speech Recognizer!")
+                error_message = f"Error initializing Speech Recognizer: {e}\n"
+                error_message += "Please ensure you have a microphone and PyAudio installed correctly.\n"
+                if sys.platform == "darwin": # macOS
+                    error_message += "On macOS, you might need to install PortAudio: brew install portaudio\n"
+                error_message += "Then try reinstalling PyAudio: pip uninstall PyAudio; pip install PyAudio"
+
                 error_panel = Panel(
-                    Text(f"Error during shutdown: {e}", style="bold red"),
+                    Text(error_message, style="bold red"),
                     style="red",
                     padding=(0, 2)
                 )
                 console.print(error_panel)
+                sys.exit(1)
+        
+        self.current_text = ""
+        self.is_recording = False
+
+    def listen(self) -> str:
+        """
+        Record audio from the microphone and return the transcribed text.
+        Uses SpeechRecognition library with Apple's Speech Recognition.
+        
+        Returns:
+            str: The transcribed text from the audio, or an empty string on error/no speech.
+        """
+        self.is_recording = True
+        self.current_text = ""
+
+        recording_panel = Panel(
+            Text("🎤 Listening... Speak now. Stop speaking to finish.", style="bold yellow"),
+            style="yellow",
+            padding=(0, 2)
+        )
+        console.print(recording_panel)
+
+        try:
+            with self.microphone as source:
+                # recognizer.listen will stop automatically on silence
+                audio = self.recognizer.listen(source)
+
+            processing_panel = Panel(
+                Text("🧠 Processing speech...", style="bold cyan"),
+                style="cyan",
+                padding=(0, 2)
+            )
+            console.print(processing_panel)
+
+            try:
+                # Recognize speech using Apple's built-in speech recognition
+                self.current_text = self.recognizer.recognize_apple(audio)
+                completion_panel = Panel(
+                    Text("✅ Transcription complete!", style="bold green"),
+                    style="green",
+                    padding=(0, 2)
+                )
+                console.print(completion_panel)
+                return self.current_text
+            except sr.UnknownValueError:
+                error_panel = Panel(
+                    Text("⚠️ Could not understand audio", style="yellow"),
+                    style="yellow",
+                    padding=(0, 2)
+                )
+                console.print(error_panel)
+                return ""
+            except sr.RequestError as e:
+                error_panel = Panel(
+                    Text(f"⚠️ Apple Speech Recognition service error: {e}", style="bold red"),
+                    style="red",
+                    padding=(0, 2)
+                )
+                console.print(error_panel)
+                return ""
+        except sr.WaitTimeoutError:
+            error_panel = Panel(
+                Text("⚠️ No speech detected within the time limit.", style="yellow"),
+                style="yellow",
+                padding=(0,2)
+            )
+            console.print(error_panel)
+            return ""
+        except Exception as e:
+            error_panel = Panel(
+                Text(f"⚠️ An error occurred during listening: {e}", style="bold red"),
+                style="red",
+                padding=(0, 2)
+            )
+            console.print(error_panel)
+            return ""
+        finally:
+            self.is_recording = False
+    
+    def shutdown(self):
+        """Shutdown the transcriber and clean up resources"""
+        try:
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                console=console
+            ) as progress:
+                task = progress.add_task("Shutting down transcriber...", total=None)
+                # Console mode cleanup (minimal)
+                self.current_text = ""
+                self.is_recording = False
+                progress.update(task, description="Transcriber shutdown complete")
+                time.sleep(0.3)
+        except Exception as e:
+            error_panel = Panel(
+                Text(f"Error during shutdown: {e}", style="bold red"),
+                style="red",
+                padding=(0, 2)
+            )
+            console.print(error_panel)
 
 
 async def main():
     """Main application loop"""
+    # Check for required environment variable (keeping for future TTS integration)
+    GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+    if not GOOGLE_API_KEY:
+        console.print("[bold red]Error: GOOGLE_API_KEY environment variable not set.[/bold red]")
+        console.print("Please set it in your .env file or as an environment variable.")
+        sys.exit(1)
+    
     # Show welcome screen first
     show_welcome_screen()
     
@@ -326,7 +363,7 @@ async def main():
         while True:
             # Show prompt for user input
             prompt_panel = Panel(
-                Text("Press Enter to start recording", style="bold cyan"),
+                Text("Press Enter to start speaking", style="bold cyan"),
                 style="cyan",
                 padding=(0, 2)
             )

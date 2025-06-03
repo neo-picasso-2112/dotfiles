@@ -346,3 +346,400 @@
 2025-06-02 02:55:26.959 - RealTimeSTT: realtimestt - DEBUG - Terminating reader process
 2025-06-02 02:55:26.959 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
 2025-06-02 02:55:26.959 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread
+2025-06-03 18:49:08.580 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-03 18:49:08.585 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2025-06-03 18:49:08.588 - RealTimeSTT: realtimestt - INFO - Initializing faster_whisper realtime transcription model tiny.en, default device: cpu, compute type: float32, device index: 0, download root: None
+2025-06-03 18:49:09.616 - RealTimeSTT: realtimestt - DEBUG - Faster_whisper realtime speech to text transcription model initialized successfully
+2025-06-03 18:49:09.616 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2025-06-03 18:49:09.616 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2025-06-03 18:49:10.174 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2025-06-03 18:49:10.175 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2025-06-03 18:49:10.175 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2025-06-03 18:49:10.435 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2025-06-03 18:49:10.435 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2025-06-03 18:49:13.893 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 18:49:13.893 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 18:49:13.894 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 18:49:15.129 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 18:49:15.129 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 18:49:15.129 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 18:49:15.129 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 18:49:15.146 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 18:49:15.268 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi.
+2025-06-03 18:49:15.347 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 18:49:15.467 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi.
+2025-06-03 18:49:15.547 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 18:49:15.690 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you going?
+2025-06-03 18:49:15.747 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 26112
+2025-06-03 18:49:15.894 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you going?
+2025-06-03 18:49:15.948 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 29184
+2025-06-03 18:49:16.102 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you going today?
+2025-06-03 18:49:16.791 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 18:49:16.792 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 43008
+2025-06-03 18:49:16.792 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 18:49:16.793 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 18:49:16.793 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 18:49:16.805 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:16.907 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:16.975 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 18:49:16.976 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.18 seconds
+2025-06-03 18:49:18.386 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 18:49:18.386 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 18:49:18.387 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 18:49:19.478 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 18:49:19.478 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 18:49:19.478 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 18:49:19.478 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 18:49:19.496 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 18:49:19.616 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Bye.
+2025-06-03 18:49:19.697 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 18:49:19.808 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm
+2025-06-03 18:49:19.898 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 18:49:20.030 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I am there.
+2025-06-03 18:49:20.098 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 26112
+2025-06-03 18:49:20.238 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I am very very...
+2025-06-03 18:49:20.298 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 29184
+2025-06-03 18:49:20.437 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very worried.
+2025-06-03 18:49:20.499 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 32256
+2025-06-03 18:49:20.677 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very, very, very good.
+2025-06-03 18:49:20.700 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 36352
+2025-06-03 18:49:20.859 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very very very good
+2025-06-03 18:49:21.015 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 41472
+2025-06-03 18:49:21.201 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very, very, very good.
+2025-06-03 18:49:21.216 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 44544
+2025-06-03 18:49:21.425 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very, very, very good.
+2025-06-03 18:49:21.425 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 47616
+2025-06-03 18:49:21.645 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'm very, very, very good. How are you?
+2025-06-03 18:49:21.645 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 50688
+2025-06-03 18:49:21.844 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I am very very very good how you don't
+2025-06-03 18:49:22.488 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 18:49:22.491 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 64512
+2025-06-03 18:49:22.491 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 18:49:22.491 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 18:49:22.491 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 18:49:22.513 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:22.614 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:22.715 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:22.735 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 18:49:22.736 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.24 seconds
+2025-06-03 18:49:29.113 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 18:49:29.113 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 18:49:29.113 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 18:49:29.719 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 18:49:29.719 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 18:49:29.719 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 18:49:29.720 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 18:49:29.728 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 18:49:29.736 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected: 
+2025-06-03 18:49:29.926 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 18:49:30.050 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey.
+2025-06-03 18:49:30.127 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 18:49:30.257 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey.
+2025-06-03 18:49:30.328 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 26112
+2025-06-03 18:49:30.459 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey.
+2025-06-03 18:49:30.619 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 31232
+2025-06-03 18:49:30.754 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey.
+2025-06-03 18:49:30.819 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 34304
+2025-06-03 18:49:30.949 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey hey hey.
+2025-06-03 18:49:31.021 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 37376
+2025-06-03 18:49:31.160 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey
+2025-06-03 18:49:31.221 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 40448
+2025-06-03 18:49:31.362 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey
+2025-06-03 18:49:31.509 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 45568
+2025-06-03 18:49:31.667 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey.
+2025-06-03 18:49:31.710 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 48640
+2025-06-03 18:49:31.849 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey hey hey hey hey
+2025-06-03 18:49:31.911 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 51712
+2025-06-03 18:49:32.097 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:32.113 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 54784
+2025-06-03 18:49:32.274 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey
+2025-06-03 18:49:32.313 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 57856
+2025-06-03 18:49:32.502 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:32.514 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 60928
+2025-06-03 18:49:32.704 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:32.715 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 64000
+2025-06-03 18:49:32.908 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:32.915 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 67072
+2025-06-03 18:49:33.110 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:33.116 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 71168
+2025-06-03 18:49:33.311 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:33.316 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 74240
+2025-06-03 18:49:33.513 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:33.517 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 77312
+2025-06-03 18:49:33.715 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:33.718 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 80384
+2025-06-03 18:49:33.912 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey.
+2025-06-03 18:49:33.919 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 83456
+2025-06-03 18:49:34.096 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I hate, I hate, I hate
+2025-06-03 18:49:34.119 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 86528
+2025-06-03 18:49:34.297 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I hate, I hate, I hate
+2025-06-03 18:49:34.320 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 89600
+2025-06-03 18:49:34.509 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:34.520 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 93696
+2025-06-03 18:49:34.710 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:34.904 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 99840
+2025-06-03 18:49:35.105 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:35.736 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 113152
+2025-06-03 18:49:35.939 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:35.939 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 116224
+2025-06-03 18:49:36.133 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:36.140 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 119296
+2025-06-03 18:49:36.331 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:36.340 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 122368
+2025-06-03 18:49:36.530 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:36.541 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 125440
+2025-06-03 18:49:36.734 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:36.741 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 128512
+2025-06-03 18:49:36.939 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:36.942 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 131584
+2025-06-03 18:49:37.129 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:37.143 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 135680
+2025-06-03 18:49:37.335 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:37.344 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 138752
+2025-06-03 18:49:37.543 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:37.545 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 141824
+2025-06-03 18:49:37.741 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:37.745 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 144896
+2025-06-03 18:49:37.939 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:37.946 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 147968
+2025-06-03 18:49:38.139 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:38.146 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 151040
+2025-06-03 18:49:38.341 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:38.346 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 154112
+2025-06-03 18:49:38.543 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:38.547 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 157184
+2025-06-03 18:49:38.748 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:38.749 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 161280
+2025-06-03 18:49:38.946 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:38.950 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 164352
+2025-06-03 18:49:39.154 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:39.154 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 167424
+2025-06-03 18:49:39.356 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:39.385 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 171520
+2025-06-03 18:49:39.586 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:39.586 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 174592
+2025-06-03 18:49:39.788 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:39.830 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 178688
+2025-06-03 18:49:40.032 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:40.032 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 181760
+2025-06-03 18:49:40.233 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:40.233 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 184832
+2025-06-03 18:49:40.435 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:40.435 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 187904
+2025-06-03 18:49:40.640 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:40.855 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 195072
+2025-06-03 18:49:41.077 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:41.175 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 200192
+2025-06-03 18:49:41.386 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:41.386 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 203264
+2025-06-03 18:49:41.593 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:41.688 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 208384
+2025-06-03 18:49:41.897 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:42.006 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 213504
+2025-06-03 18:49:42.213 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:42.213 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 216576
+2025-06-03 18:49:42.414 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:42.414 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 219648
+2025-06-03 18:49:42.625 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:42.625 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 222720
+2025-06-03 18:49:42.831 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:42.904 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 227840
+2025-06-03 18:49:43.116 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hey, hey, hey, hey, hey
+2025-06-03 18:49:43.116 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 230912
+2025-06-03 18:49:43.351 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I hate, I hate, I hate, I hate.
+2025-06-03 18:49:44.121 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 18:49:44.127 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 246784
+2025-06-03 18:49:44.127 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 18:49:44.127 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 18:49:44.127 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 18:49:44.131 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:44.233 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:44.334 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:44.378 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 18:49:44.379 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.25 seconds
+2025-06-03 18:49:49.497 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 18:49:49.498 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 18:49:49.498 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 18:49:50.454 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 18:49:50.454 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 18:49:50.454 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 18:49:50.454 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 18:49:50.459 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 18:49:50.593 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken.
+2025-06-03 18:49:50.658 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 18:49:50.773 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken.
+2025-06-03 18:49:50.859 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 18:49:50.983 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken.
+2025-06-03 18:49:51.059 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 26112
+2025-06-03 18:49:51.204 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken.
+2025-06-03 18:49:51.261 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 29184
+2025-06-03 18:49:51.394 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken.
+2025-06-03 18:49:51.462 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 32256
+2025-06-03 18:49:51.613 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken
+2025-06-03 18:49:51.664 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 35328
+2025-06-03 18:49:51.809 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken
+2025-06-03 18:49:51.864 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 38400
+2025-06-03 18:49:52.007 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken
+2025-06-03 18:49:52.065 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 42496
+2025-06-03 18:49:52.219 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken chicken
+2025-06-03 18:49:52.266 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 45568
+2025-06-03 18:49:52.418 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken chicken
+2025-06-03 18:49:52.466 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 48640
+2025-06-03 18:49:52.625 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken chicken
+2025-06-03 18:49:52.666 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 51712
+2025-06-03 18:49:52.819 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken chicken
+2025-06-03 18:49:52.952 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 56832
+2025-06-03 18:49:53.109 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken chicken
+2025-06-03 18:49:53.153 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 59904
+2025-06-03 18:49:53.322 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken hello
+2025-06-03 18:49:53.354 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 62976
+2025-06-03 18:49:53.517 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken hello
+2025-06-03 18:49:53.554 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 66048
+2025-06-03 18:49:53.721 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken hello
+2025-06-03 18:49:53.754 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 69120
+2025-06-03 18:49:53.961 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken. Hello. Hello, Sony
+2025-06-03 18:49:54.230 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 77312
+2025-06-03 18:49:54.465 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken. Hello. Hello, Sony
+2025-06-03 18:49:54.617 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 83456
+2025-06-03 18:49:54.843 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken. Hello. Hello, Sony
+2025-06-03 18:49:55.133 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 91648
+2025-06-03 18:49:55.370 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Chicken chicken chicken chicken chicken. Hello. Hello, Sony
+2025-06-03 18:49:56.150 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 18:49:56.153 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 107520
+2025-06-03 18:49:56.154 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 18:49:56.154 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 18:49:56.154 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 18:49:56.157 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:56.258 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:56.359 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 18:49:56.395 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 18:49:56.396 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.24 seconds
+2025-06-03 18:55:10.294 - RealTimeSTT: realtimestt - DEBUG - Finishing recording thread
+2025-06-03 18:55:10.304 - RealTimeSTT: realtimestt - DEBUG - Terminating reader process
+2025-06-03 18:55:10.305 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
+2025-06-03 18:55:10.305 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread
+2025-06-03 19:01:02.392 - RealTimeSTT: realtimestt - INFO - Starting RealTimeSTT
+2025-06-03 19:01:02.397 - RealTimeSTT: realtimestt - INFO - Initializing audio recording (creating pyAudio input stream, sample rate: 16000 buffer size: 512
+2025-06-03 19:01:02.400 - RealTimeSTT: realtimestt - INFO - Initializing faster_whisper realtime transcription model tiny.en, default device: cpu, compute type: float32, device index: 0, download root: None
+2025-06-03 19:01:03.427 - RealTimeSTT: realtimestt - DEBUG - Faster_whisper realtime speech to text transcription model initialized successfully
+2025-06-03 19:01:03.427 - RealTimeSTT: realtimestt - INFO - Initializing WebRTC voice with Sensitivity 3
+2025-06-03 19:01:03.427 - RealTimeSTT: realtimestt - DEBUG - WebRTC VAD voice activity detection engine initialized successfully
+2025-06-03 19:01:04.194 - RealTimeSTT: realtimestt - DEBUG - Silero VAD voice activity detection engine initialized successfully
+2025-06-03 19:01:04.194 - RealTimeSTT: realtimestt - DEBUG - Starting realtime worker
+2025-06-03 19:01:04.194 - RealTimeSTT: realtimestt - DEBUG - Waiting for main transcription model to start
+2025-06-03 19:01:04.194 - RealTimeSTT: realtimestt - DEBUG - Main transcription model ready
+2025-06-03 19:01:04.195 - RealTimeSTT: realtimestt - DEBUG - RealtimeSTT initialization completed successfully
+2025-06-03 19:01:09.540 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 19:01:09.541 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 19:01:09.541 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 19:01:11.003 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 19:01:11.003 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 19:01:11.003 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 19:01:11.003 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 19:01:11.016 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 19:01:11.139 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Bye.
+2025-06-03 19:01:11.217 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 19:01:11.365 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing?
+2025-06-03 19:01:11.418 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 19:01:11.573 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing?
+2025-06-03 19:01:11.646 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 27136
+2025-06-03 19:01:11.816 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:12.666 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 43008
+2025-06-03 19:01:12.854 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:13.565 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 57856
+2025-06-03 19:01:13.754 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:13.945 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 64000
+2025-06-03 19:01:14.129 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:14.655 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 75264
+2025-06-03 19:01:14.845 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:14.854 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 78336
+2025-06-03 19:01:15.030 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Hi, how you doing today?
+2025-06-03 19:01:15.867 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 19:01:15.869 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 94208
+2025-06-03 19:01:15.869 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 19:01:15.869 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 19:01:15.869 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 19:01:15.892 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:15.994 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:16.064 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 19:01:16.064 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.19 seconds
+2025-06-03 19:01:19.391 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 19:01:19.391 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 19:01:19.391 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 19:01:21.242 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 19:01:21.242 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 19:01:21.242 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 19:01:21.242 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 19:01:21.254 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 19:01:21.388 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  Whoa.
+2025-06-03 19:01:21.454 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 19:01:21.568 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What?
+2025-06-03 19:01:21.655 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 19:01:21.780 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What up?
+2025-06-03 19:01:21.857 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 26112
+2025-06-03 19:01:21.981 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What I...
+2025-06-03 19:01:22.058 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 29184
+2025-06-03 19:01:22.180 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you
+2025-06-03 19:01:22.259 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 32256
+2025-06-03 19:01:22.391 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you?
+2025-06-03 19:01:22.458 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 35328
+2025-06-03 19:01:22.598 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you doing?
+2025-06-03 19:01:22.715 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 40448
+2025-06-03 19:01:22.868 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you doing?
+2025-06-03 19:01:22.915 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 43520
+2025-06-03 19:01:23.068 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you doing today?
+2025-06-03 19:01:23.162 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 47616
+2025-06-03 19:01:23.312 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you doing today?
+2025-06-03 19:01:23.421 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 51712
+2025-06-03 19:01:23.598 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  What are you doing today?
+2025-06-03 19:01:24.380 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 19:01:24.381 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 66560
+2025-06-03 19:01:24.381 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 19:01:24.381 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 19:01:24.381 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 19:01:24.387 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:24.488 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:24.567 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 19:01:24.568 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.19 seconds
+2025-06-03 19:01:28.295 - RealTimeSTT: realtimestt - INFO - Setting listen time
+2025-06-03 19:01:28.295 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'listening'
+2025-06-03 19:01:28.295 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording start
+2025-06-03 19:01:28.605 - RealTimeSTT: realtimestt - INFO - voice activity detected
+2025-06-03 19:01:28.605 - RealTimeSTT: realtimestt - INFO - recording started
+2025-06-03 19:01:28.605 - RealTimeSTT: realtimestt - INFO - State changed from 'listening' to 'recording'
+2025-06-03 19:01:28.605 - RealTimeSTT: realtimestt - DEBUG - Waiting for recording stop
+2025-06-03 19:01:28.618 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 16896
+2025-06-03 19:01:28.627 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected: 
+2025-06-03 19:01:28.818 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 19968
+2025-06-03 19:01:28.826 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected: 
+2025-06-03 19:01:29.019 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 23040
+2025-06-03 19:01:29.028 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected: 
+2025-06-03 19:01:29.438 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 30208
+2025-06-03 19:01:29.449 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected: 
+2025-06-03 19:01:29.638 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 33280
+2025-06-03 19:01:29.784 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be.
+2025-06-03 19:01:29.839 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 36352
+2025-06-03 19:01:29.979 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be done.
+2025-06-03 19:01:30.040 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 39424
+2025-06-03 19:01:30.191 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be doing good.
+2025-06-03 19:01:30.268 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 43520
+2025-06-03 19:01:30.446 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I hope you're doing good tonight.
+2025-06-03 19:01:30.911 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 53760
+2025-06-03 19:01:31.091 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be doing good today.
+2025-06-03 19:01:31.111 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 56832
+2025-06-03 19:01:31.274 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be doing good today.
+2025-06-03 19:01:31.312 - RealTimeSTT: realtimestt - DEBUG - Current realtime buffer size: 59904
+2025-06-03 19:01:31.474 - RealTimeSTT: realtimestt - DEBUG - Realtime text detected:  I'll be doing good today.
+2025-06-03 19:01:32.252 - RealTimeSTT: realtimestt - INFO - recording stopped
+2025-06-03 19:01:32.253 - RealTimeSTT: realtimestt - DEBUG - No samples removed, final audio length: 74752
+2025-06-03 19:01:32.253 - RealTimeSTT: realtimestt - INFO - State changed from 'recording' to 'inactive'
+2025-06-03 19:01:32.253 - RealTimeSTT: realtimestt - INFO - State changed from 'inactive' to 'transcribing'
+2025-06-03 19:01:32.253 - RealTimeSTT: realtimestt - DEBUG - Adding transcription request, no early transcription started
+2025-06-03 19:01:32.256 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:32.357 - RealTimeSTT: realtimestt - DEBUG - Receive from parent_transcription_pipe after sendiung transcription request, transcribe_count: 1
+2025-06-03 19:01:32.443 - RealTimeSTT: realtimestt - INFO - State changed from 'transcribing' to 'inactive'
+2025-06-03 19:01:32.443 - RealTimeSTT: realtimestt - DEBUG - Model tiny.en completed transcription in 0.19 seconds
+2025-06-03 19:01:40.653 - RealTimeSTT: realtimestt - DEBUG - Finishing recording thread
+2025-06-03 19:01:40.655 - RealTimeSTT: realtimestt - DEBUG - Terminating reader process
+2025-06-03 19:01:40.655 - RealTimeSTT: realtimestt - DEBUG - Terminating transcription process
+2025-06-03 19:01:40.656 - RealTimeSTT: realtimestt - DEBUG - Finishing realtime thread

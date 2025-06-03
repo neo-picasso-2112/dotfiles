@@ -1,4 +1,3 @@
-
 # Helper functions for voice assistant.
 # Dependencies for direct audio playback: sounddevice, numpy
 

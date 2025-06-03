@@ -1,80 +1,120 @@
-# Voice Assistant - Speech-to-Text Feature
+# Voice Assistant - Speech-to-Text (STT)
+
+This application provides real-time voice transcription using your computer's microphone and Apple's built-in speech recognition capabilities (on macOS).
 
 ## Setup
 
-1. Create virtual environment:
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
+1.  **Create and Activate a Virtual Environment:**
+    It's highly recommended to use a virtual environment.
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate  # On macOS/Linux
+    # .\.venv\Scripts\activate  # On Windows
+    ```
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-# or manually:
-pip install google-genai sounddevice numpy RealtimeSTT rich PyAudio pytest "numpy<2"
-```
+2.  **Install Dependencies:**
+    The project uses `pyproject.toml` to manage dependencies. You can install them using `pip` or `uv`.
 
-3. Set your Google API key:
-```bash
-export GOOGLE_API_KEY=your_api_key_here
-```
+    *   **Using `pip`:**
+        ```bash
+        pip install -e .
+        ```
+        This installs the project in editable mode along with its dependencies (`rich`, `SpeechRecognition`, `PyAudio`, `python-dotenv`, `google-genai`).
+
+    *   **Using `uv` (alternative):**
+        ```bash
+        uv pip install -e .
+        # Or, to sync based on pyproject.toml directly:
+        # uv sync
+        ```
+
+3.  **macOS Specific: Install `portaudio`**
+    `PyAudio` (a dependency for microphone access) on macOS often requires `portaudio`. If you encounter issues during `PyAudio` installation or when running the app, install `portaudio` using Homebrew:
+    ```bash
+    brew install portaudio
+    ```
+    Then, you might need to reinstall `PyAudio`:
+    ```bash
+    pip uninstall PyAudio
+    pip install PyAudio --no-cache-dir
+    ```
+
+4.  **Set Your Google API Key (for future TTS functionality):**
+    While the current STT functionality doesn't require it, the application is set up to potentially use Google GenAI for Text-to-Speech (TTS) in the future.
+    Create a `.env` file in the project root with your key:
+    ```
+    GOOGLE_API_KEY=your_google_api_key_here
+    ```
+    Or set it as an environment variable:
+    ```bash
+    export GOOGLE_API_KEY=your_google_api_key_here
+    ```
 
 ## Running the Application
 
-### Method 1: Using UV (Recommended - handles dependencies automatically)
+Ensure your virtual environment is activated.
+
+### Method 1: Using `uv run` (Recommended if `uv` is installed)
+`uv` can run the script and manage its execution environment based on the `/// script` header in `main.py` or `pyproject.toml`.
 ```bash
-# Set your API key
-export GOOGLE_API_KEY=your_api_key_here
+# If you haven't set GOOGLE_API_KEY in a .env file:
+# export GOOGLE_API_KEY=your_google_api_key_here
 
-# Run with UV (handles all dependencies and architecture issues)
-uv run main.py
-
-# Or make it executable and run directly
-chmod +x main.py
-./main.py
+uv run ./main.py
 ```
 
-### Method 2: Using Python directly (requires manual setup)
+### Method 2: Using Python Directly
 ```bash
-# If you prefer using python directly, you need to ensure correct architecture
-# For Apple Silicon Macs:
-arch -arm64 python3 main.py
+# If you haven't set GOOGLE_API_KEY in a .env file:
+# export GOOGLE_API_KEY=your_google_api_key_here
 
-# For Intel Macs:
-arch -x86_64 python3 main.py
+python main.py
+# Or, since main.py is executable:
+# chmod +x main.py
+# ./main.py
 ```
-
-**Note**: UV automatically handles architecture compatibility and dependencies, making it the most reliable method.
 
 ## Usage
 
-1. Run the application
-2. Press Enter to start recording
-3. Speak into your microphone
-4. Watch real-time transcription appear as you speak
-5. Press Enter again to stop recording
-6. View the final transcription in a formatted panel
-7. Press Ctrl+C to exit
+1.  Run the application using one of the methods above.
+2.  The application will initialize the speech recognizer.
+3.  Press **Enter** when prompted to start speaking.
+4.  Speak clearly into your microphone.
+5.  The application will listen until it detects silence, then process your speech.
+6.  The transcribed text will be displayed.
+7.  Press **Ctrl+C** to exit the application.
 
 ## Testing
 
-Run tests:
-```bash
-source .venv/bin/activate
-pytest tests/test_voice_transcriber.py tests/test_basic.py -v
-```
+Test dependencies are defined in `pyproject.toml` (`pytest`, `pytest-asyncio`, `pytest-cov`).
+
+1.  Ensure your virtual environment is activated and test dependencies are installed:
+    ```bash
+    pip install -e ".[test]"
+    # or with uv
+    # uv pip install -e ".[test]"
+    ```
+2.  Run tests:
+    ```bash
+    pytest -v
+    ```
+    This will discover and run tests in the `tests/` directory.
 
 ## Features
 
-- Real-time speech-to-text transcription
-- Live display of transcription as you speak
-- Clean CLI interface with Rich formatting
-- Uses Whisper tiny.en model for fast performance
-- Previous TTS functionality preserved in comments for future integration
+-   Real-time speech-to-text transcription using `SpeechRecognition` and Apple's native STT (on macOS).
+-   Clean command-line interface (CLI) using the `rich` library.
+-   Microphone input via `PyAudio`.
+-   Setup for future Text-to-Speech (TTS) integration using `google-genai`.
 
 ## Troubleshooting
 
-- If you get "GOOGLE_API_KEY not set" error, make sure to export the environment variable
-- For architecture issues with UV, use the virtual environment directly
-- Ensure your microphone permissions are enabled for the terminal
+-   **`GOOGLE_API_KEY not set` error:** Ensure you have set the `GOOGLE_API_KEY` in a `.env` file or as an environment variable (required for the application to start, even if TTS is not yet fully implemented).
+-   **Microphone Issues / `PyAudio` errors on macOS:**
+    *   Ensure `portaudio` is installed (`brew install portaudio`).
+    *   Try reinstalling `PyAudio` (`pip uninstall PyAudio; pip install PyAudio --no-cache-dir`).
+    *   Make sure your terminal application has permission to access the microphone (System Settings > Privacy & Security > Microphone).
+-   **"Could not understand audio" / No transcription:**
+    *   Ensure your microphone is selected as the default input and is working.
+    *   Speak clearly and in a relatively quiet environment.
+    *   Check microphone volume levels.
