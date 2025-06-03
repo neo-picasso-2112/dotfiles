@@ -65,7 +65,7 @@ from rich.syntax import Syntax
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types as genai_types
-from .helper import play_audio # For Google TTS playback, now a relative import
+from helper import play_audio # For Google TTS playback, now a relative import
 from RealtimeSTT import AudioToTextRecorder
 import logging
 
@@ -139,7 +139,7 @@ console = Console()
 load_dotenv()
 
 # Check required environment variables
-required_vars = ["ANTHROPIC_API_KEY", "GOOGLE_API_KEY"] # Changed OPENAI_API_KEY to GOOGLE_API_KEY
+required_vars = ["GOOGLE_API_KEY"] # Changed OPENAI_API_KEY to GOOGLE_API_KEY
 missing_vars = [var for var in required_vars if not os.environ.get(var)]
 if missing_vars:
     console.print(
@@ -322,11 +322,11 @@ class ClaudeCodeAssistant:
             # Use the prompt template for compression
             prompt_for_compression = COMPRESS_PROMPT.format(text=text)
 
-            compression_response = google_client.generate_content(
-                model='gemini-2.5-flash-preview-05-20', # Changed to user's preferred model
-                contents=prompt_for_compression, # Sending the full prompt with instructions
-                generation_config=genai_types.GenerationConfig(
-                    temperature=0.2, # Slightly creative for rephrasing
+            compression_response = google_client.models.generate_content(
+                model='gemini-2.5-flash-preview-05-20',
+                contents=prompt_for_compression,
+                config=genai_types.GenerateContentConfig( # Changed to 'config' and 'GenerateContentConfig'
+                    temperature=0.2,
                     max_output_tokens=1024
                 )
             )
@@ -381,10 +381,10 @@ class ClaudeCodeAssistant:
             tts_model_id = "gemini-2.5-flash-preview-tts" # As per your example
             tts_voice_name = "Sadaltager" # As per your example, can be made configurable
 
-            tts_response = google_client.generate_content(
+            tts_response = google_client.models.generate_content(
                 model=tts_model_id,
-                contents=compressed_text_for_tts, # Text to be spoken
-                generation_config=genai_types.GenerationConfig(
+                contents=compressed_text_for_tts,
+                config=genai_types.GenerateContentConfig( # Changed to 'config' and 'GenerateContentConfig' for TTS
                     response_modalities=["AUDIO"],
                     speech_config=genai_types.SpeechConfig(
                         voice_config=genai_types.VoiceConfig(

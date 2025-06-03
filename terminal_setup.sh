@@ -91,13 +91,5 @@ else
   echo "Claude Code CLI is already installed."
 fi
 
-# Install ccusage if not already installed
-if ! command_exists ccusage; then
-  echo "Installing ccusage..."
-  npm install -g ccusage
-else
-  echo "ccusage is already installed."
-fi
-
 #### EXPORT
 export PATH="$HOME/bin:$PATH"

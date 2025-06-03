@@ -1,0 +1,58 @@
+- content: Hey Claude, explain to me what main.py is doing.
+  role: user
+- content: 'This main.py is a full voice assistant that integrates with Claude Code
+    CLI. Here''s what it does:
+
+
+    **Core functionality:**
+
+    - Real-time speech recognition using RealtimeSTT (Whisper-based)
+
+    - Integrates with Claude Code CLI for AI-powered coding assistance
+
+    - Text-to-speech responses using Google GenAI TTS
+
+    - Conversation history tracking in YAML files
+
+
+    **Key features:**
+
+    1. **Voice activation**: Listens for trigger words ("claude", "cloud", "sonnet",
+    "sonny") before processing commands
+
+    2. **Speech-to-text**: Converts voice to text using RealtimeSTT with Whisper model
+
+    3. **Claude Code integration**: Executes Claude Code CLI with specified tools
+    (Bash, Edit, Write, etc.)
+
+    4. **Response compression**: Shortens Claude''s responses for voice output
+
+    5. **Text-to-speech**: Converts responses to speech using Google''s Gemini TTS
+
+    6. **Conversation persistence**: Saves conversations to YAML files in output/
+    directory
+
+
+    **Usage:**
+
+    - Run with `./reference/main.py`
+
+    - Optionally specify conversation ID: `--id conversation123`
+
+    - Optionally provide initial prompt: `--prompt "create a hello world script"`
+
+    - Say trigger word + command: "Hey claude, create a Python function"
+
+
+    **Requirements:**
+
+    - Google API key for TTS and text processing
+
+    - Anthropic API key for Claude Code CLI
+
+    - Python 3.9+
+
+    - UV package manager for dependencies
+
+    '
+  role: assistant

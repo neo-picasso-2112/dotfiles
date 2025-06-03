@@ -30,6 +30,5 @@
       "Bash(wget * | sh)",
       "Bash(eval *)"
     ]
-  },
-  "model": "sonnet"
+  }
 }
