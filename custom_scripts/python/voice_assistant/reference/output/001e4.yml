@@ -56,3 +56,68 @@
 
     '
   role: assistant
+- content: Hey Claude, when the compressed speech is returned, is there any way to
+    stream in the text to speech in real time to reduce latency?
+  role: user
+- content: I'm sorry, but I encountered an error while processing your request. Please
+    try again.
+  role: assistant
+- content: Hey Claude, explain to me as if you were an Irishman, the mini of life.
+  role: user
+- content: "Looking at the code, I can see that the TTS process currently works in\
+    \ a blocking manner - it waits for the entire response to be compressed, then\
+    \ generates the full audio, then plays it. To implement streaming TTS for lower\
+    \ latency, here are the key changes needed:\n\n## Current Flow (High Latency):\n\
+    1. Get Claude's full response\n2. Compress entire text\n3. Generate complete audio\n\
+    4. Play audio\n\n## Streaming TTS Implementation Options:\n\n### 1. **Chunk-based\
+    \ Streaming**\nSplit the response into sentences or phrases and process them independently:\n\
+    \n```python\nasync def speak_streaming(self, text: str):\n    \"\"\"Stream TTS\
+    \ by processing text in chunks\"\"\"\n    import re\n    \n    # Split into sentences\n\
+    \    sentences = re.split(r'(?<=[.!?])\\s+', text)\n    \n    # Process each sentence\
+    \ independently\n    for sentence in sentences:\n        if sentence.strip():\n\
+    \            # Compress just this chunk\n            compressed = await self.compress_chunk(sentence)\n\
+    \            \n            # Generate TTS for this chunk\n            tts_task\
+    \ = asyncio.create_task(self.generate_tts(compressed))\n            \n       \
+    \     # Start playing previous chunk while generating next\n            if hasattr(self,\
+    \ 'current_audio'):\n                await self.play_audio_async(self.current_audio)\n\
+    \            \n            self.current_audio = await tts_task\n```\n\n### 2.\
+    \ **Claude Response Streaming**\nModify Claude Code subprocess to stream output:\n\
+    \n```python\nasync def process_message_streaming(self, message: str):\n    \"\"\
+    \"Process with streaming Claude responses\"\"\"\n    import asyncio.subprocess\n\
+    \    \n    process = await asyncio.create_subprocess_exec(\n        \"claude\"\
+    , \"-p\", prompt, \"--allowedTools\", *DEFAULT_CLAUDE_TOOLS,\n        stdout=asyncio.subprocess.PIPE,\n\
+    \        stderr=asyncio.subprocess.PIPE\n    )\n    \n    buffer = \"\"\n    async\
+    \ for line in process.stdout:\n        buffer += line.decode()\n        \n   \
+    \     # Check if we have a complete sentence\n        if any(punct in buffer for\
+    \ punct in '.!?'):\n            await self.speak_streaming(buffer)\n         \
+    \   buffer = \"\"\n```\n\n### 3. **Google TTS Streaming API**\nGoogle GenAI may\
+    \ support streaming responses:\n\n```python\nasync def generate_tts_streaming(self,\
+    \ text_chunks):\n    \"\"\"Use streaming TTS if available\"\"\"\n    # This would\
+    \ require checking if google-genai supports streaming\n    for chunk in text_chunks:\n\
+    \        # Stream audio generation\n        audio_stream = await google_client.models.generate_content_stream(\n\
+    \            model=tts_model_id,\n            contents=chunk,\n            config=genai_types.GenerateContentConfig(\n\
+    \                response_modalities=[\"AUDIO\"],\n                streaming=True\
+    \  # If supported\n            )\n        )\n        \n        async for audio_chunk\
+    \ in audio_stream:\n            yield audio_chunk\n```\n\n### 4. **Parallel Processing\
+    \ Pipeline**\nProcess compression and TTS in parallel:\n\n```python\nasync def\
+    \ speak_pipeline(self, text: str):\n    \"\"\"Pipeline for parallel processing\"\
+    \"\"\n    chunks = self.split_into_chunks(text)\n    \n    # Create pipeline of\
+    \ tasks\n    compress_tasks = []\n    tts_tasks = []\n    \n    for i, chunk in\
+    \ enumerate(chunks):\n        # Start compression\n        compress_task = asyncio.create_task(\n\
+    \            self.compress_speech(chunk)\n        )\n        compress_tasks.append(compress_task)\n\
+    \        \n        # Chain TTS generation after compression\n        async def\
+    \ generate_when_ready(task, index):\n            compressed = await task\n   \
+    \         return await self.generate_tts(compressed), index\n        \n      \
+    \  tts_task = asyncio.create_task(\n            generate_when_ready(compress_task,\
+    \ i)\n        )\n        tts_tasks.append(tts_task)\n    \n    # Play audio as\
+    \ soon as each chunk is ready\n    for tts_task in asyncio.as_completed(tts_tasks):\n\
+    \        audio, index = await tts_task\n        await self.play_audio_async(audio)\n\
+    ```\n\n### Key Implementation Considerations:\n\n1. **Sentence Boundary Detection**:\
+    \ Use regex or NLP libraries to intelligently split text\n2. **Audio Queue Management**:\
+    \ Ensure smooth playback between chunks\n3. **Error Handling**: Handle partial\
+    \ failures gracefully\n4. **Compression Strategy**: Compress smaller chunks while\
+    \ maintaining context\n5. **Voice Consistency**: Ensure TTS voice remains consistent\
+    \ across chunks\n\nThe most practical approach would be **Option 1** (chunk-based\
+    \ streaming) as it requires minimal changes to the existing code structure and\
+    \ would provide immediate latency improvements.\n"
+  role: assistant

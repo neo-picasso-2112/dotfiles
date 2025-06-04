@@ -286,6 +286,39 @@ When refactoring file operations from `dbfs://` to Databricks Volumes:
 
 ## Development Workflow
 
+### Git Commit Standards
+**ALWAYS use Conventional Commits specification** for all commits in this repository.
+
+**Format**: `<type>[optional scope]: <description>`
+
+**Required Types**:
+- `feat:` - New features or functionality
+- `fix:` - Bug fixes
+- `refactor:` - Code restructuring without functionality changes
+- `docs:` - Documentation updates
+- `test:` - Adding or updating tests
+- `chore:` - Maintenance tasks (dependencies, build config)
+- `perf:` - Performance improvements
+- `style:` - Code formatting changes
+
+**Examples**:
+```bash
+feat(member-profile): add PGP encryption for customer data exports
+fix(unity-catalog): resolve IDENTIFIER() parameter marker syntax
+refactor(vel-activity): migrate table references to Unity Catalog format
+docs(readme): update development workflow section
+test(reconciliation): add data validation tests for vel_member table
+```
+
+**Best Practices**:
+- Use descriptive scopes (table names, component names)
+- Keep descriptions concise but clear
+- Use present tense ("add" not "added")
+- Reference ticket numbers in commit body when applicable
+- Make atomic commits (one logical change per commit)
+
+**Reference**: https://www.conventionalcommits.org/
+
 ### Current Migration Focus
 - Migrating Tealium profile extraction jobs to Workbench
 - Converting `dbfs://` file operations to Databricks Volumes
