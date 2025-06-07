@@ -1,0 +1,2 @@
+- Never commit CLAUDE.md files to repository unless explicitly told so.
+- Always commit code often for medium-large size changes.

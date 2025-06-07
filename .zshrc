@@ -126,9 +126,7 @@ alias brain='cd ~/repos/second-brain'
 
 # # fzf configuration
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
+export PATH=~/.npm-global/bin:$PATH
 
 # Source Powerlevel10k theme
 source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-
-. "$HOME/.local/bin/env"
-export PATH=~/.npm-global/bin:$PATH

@@ -28,3 +28,5 @@
 
 8. Emphasizing the Use of Widgets for All Schema and Catalogue References:
    - Consistently use widgets for all schema and catalogue references to ensure parameterization and flexibility across different environments.
+
+9. Notebooks might initially use Python cells to fetch widget values (e.g., `dbutils.widgets.get('base_schema')`) and set them as Spark session variables (e.g., `spark.conf.set('env_var.base_schema', ...)`), which are then used in SQL with `${env_var.variable}` syntax. While refactoring, standard SQL widgets (`CREATE WIDGET TEXT catalogue_name ...`) should be introduced as a first step. A subsequent step will be to refactor the SQL to use these new SQL widgets directly with `IDENTIFIER(:widget_name)` syntax and remove the Python-based Spark variable pattern for schema/catalogue names.

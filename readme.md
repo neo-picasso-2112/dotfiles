@@ -1,6 +1,6 @@
 # My Dotfiles
 
-Contains configurations for my system.
+Contains configurations for my system. 
 
 ## Terminal Setup
 
@@ -14,6 +14,16 @@ These instructions are meant to be used on Mac. Instructions for terminal setup 
 
 As of 2025, we are using `gruvbox` which is a retro Vim theme with [font fantasque-sans](https://github.com/belluzj/fantasque-sans).
 This is configured by installing `gruvbox` within the `.vimrc` file. Fonts and background can be edited in Iterm2 settings.
+
+## MCP Servers for Claude Code
+
+To enhance Claude Code with additional capabilities, you can install MCP (Model Context Protocol) servers:
+
+```bash
+claude mcp add context7 -s user -- npx -y @upstash/context7-mcp
+```
+
+This command installs the Context7 MCP server which provides additional context management features for Claude Code.
 
 ## Some notes
 
@@ -47,7 +57,9 @@ Ensure Git is installed on your machine to begin cloning this dotfiles repositor
 For mac users:
 - brew install stow
 
+### Fonts
 
+My preference for fonts when working in nvim is Fantasque Mono, but Jetsbrain Mono font looks beautiful on the terminal configured (Iterm)
 
 ## Setup & Installation
 
@@ -81,5 +93,4 @@ So how do you install `.vimrc` config?
 - In Vim mode, run `:PlugInstall`
 
 This step will provide a basic editor to work with files in Vim.
-
 

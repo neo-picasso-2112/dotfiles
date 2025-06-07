@@ -1,0 +1,9 @@
+- content: Hey Claude, could you please tell me a funny joke?
+  role: user
+- content: 'Why don''t scientists trust atoms?
+
+
+    Because they make up everything!
+
+    '
+  role: assistant

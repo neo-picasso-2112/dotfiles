@@ -1,51 +1,63 @@
 ################3#######
 # Main Model
 
-model: openrouter/deepseek/deepseek-r1:free 
-# deepseek/deepseek-chat or aider --list-models/deep-seek
+model: gemini/gemini-2.5-pro-preview-05-06
+# openrouter/deepseek/deepseek-r1
+weak-model: gemini/gemini-2.5-flash-preview-04-17
+# openrouter/google/gemini-2.0-flash-exp:free
+
+read:
+#  - ~/dotfiles/aider_config/CONVENTIONS.md
+#  - ~/dotfiles/aider_config/guide.md
+#  - ~/dotfiles/aider_config/NewKnowledgeBase.md
+
+
+# Usage: aider --model fast
+alias:
+  - "gemini$:openrouter/google/gemini-2.5-pro-exp-03-25:free"
+  - "flash:openrouter/google/gemini-2.0-flash-001"
+  - "flash$:openrouter/google/gemini-2.0-flash-exp:free"
+  - "gemini:gemini/gemini-2.5-pro-preview-05-06"
+  - "sonnet:openrouter/anthropic/claude-3.7-sonnet"
+  - "r1:openrouter/deepseek/deepseek-r1"
+  - "deepseekv3:openrouter/deepseek/deepseek-chat-v3-0324"
+  - "deepseekv3$:openrouter/deepseek/deepseek-chat-v3-0324:free"
+  - "quasar$:openrouter/openrouter/quasar-alpha"
 
 auto-commits: false
 gitignore: false
 auto-lint: false
 verify-ssl: false
-
-read:
-  - ~/dotfiles/aider_config/CONVENTIONS.md
-  - ~/dotfiles/aider_config/refactoring_table_references.md
-  - ~/dotfiles/aider_config/guide.md
-  - ~/dotfiles/aider_config/NewKnowledgeBase.md
-
-
 openai-api-base: https://api.openai.com/v1
 
-# Usage: aider --model fast
-alias:
-  - "fast:gpt-4o-mini"
-  - "coder:deepseek/deepseek-coder"
-  - "gemini:openrouter/google/gemini-2.5-pro-exp-03-25:free"
-  - "sonnet:openrouter/anthropic/claude-3.5-sonnet"
-  - "r1:openrouter/deepseek/deepseek-r1"
-
-weak-model: openrouter/google/gemini-2.0-flash-001
-# weak-model: openai/gpt-4o-mini
-
-# Force repo mapping by running aider with `--map-tokens 1024
-map-tokens: 0 # disabling scanning repo
-# type /tokens
-# E.g. $ 0.0050    2,002 system messages - each time we send a prompt, it will cost minimum 0.005
+# type /tokens ===> E.g. $ 0.0050    2,002 system messages - each time we send a prompt, it will cost minimum 0.005
+map-tokens: 1024 # disabling scanning repo by setting to 0 or force repo mapping by running aider with `--map-tokens 1024`
 
 cache-prompts: true
 stream: false
 # keeps cache warm, hope ping doesn't cost too much money at 5 min intervals.
 cache-keepalive-pings: 1
 
-#####################
+
+
+
+
+
+##########################################
 # Model Settings
 
 ## Specify model to use for editor tasks (default depends on --model)
-editor-model: openrouter/google/gemini-2.5-pro-exp-03-25:free 
+# Otherwise, will use default editor model specified in model settings files.
+editor-model: openrouter/anthropic/claude-3.7-sonnet
+# openrouter/google/gemini-2.5-pro-exp-03-25:free 
+edit-format: diff-fenced
+auto-accept-architect: false ## Enable/disable automatic acceptance of architect changes (default: True)
 
-#####################
+
+
+
+
+##########################################
 # History Files:
 
 # Specify chat input history file (default: .aider.input.history
@@ -54,22 +66,27 @@ input-history-file: /Users/williamnguyen/.aider.input.history
 # Specify chat history file (default: .aider.chat.history.md)
 chat-history-file: /Users/williamnguyen/.aider.chat.history.md
 
-######################
+###########################################
 # Output Settings
 
-code-theme: default
+code-theme: monokai # solarized-dark, solarized-light
 dark-mode: true
 ## Show diffs when committing changes (default: False)
 show-diffs: true
 
-#######################
+
+
+
+
+
+############################################
 # Other Settings
 
 # Specify the .env file to load (default: .env in git root)
 env-file: /Users/williamnguyen/.env.aider
 
 ## Enable/disable terminal bell notification when LLM responses are ready. Default: False
-notifications: false
+notifications: true
 
 ## Specify command to run for notifications instead of terminal bell. 
 notifications-command: 'say aider is ready'

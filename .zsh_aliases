@@ -25,3 +25,4 @@ alias copy-diff="git diff --name-only $(git merge-base origin/master HEAD) | xar
 alias winning="git shortlog --summary --numbered --email"
 alias repos="cd ~/repos"
 alias dot="cd ~/dotfiles"
+alias brain="cd ~/repos/second-brain"
