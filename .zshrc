@@ -129,3 +129,6 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --bord
 
 # Source Powerlevel10k theme
 source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+
+. "$HOME/.local/bin/env"
+export PATH=~/.npm-global/bin:$PATH
