@@ -25,7 +25,7 @@ _darcs
 brew-packages.txt
 readme.md
 terminal_setup.sh
-example_claude_project_memories
+.claude/example_claude_project_memories
 .roo
 move_docs
 .DS_Store
