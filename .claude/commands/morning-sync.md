@@ -1,6 +1,6 @@
 ---
-allowed-tools: Bash(find:*), Bash(git:*), Bash(cd:*), Bash(echo:*), Bash(date:*), Bash(ls:*), Bash(wc:*), Bash(xargs:*), Bash(grep:*), Bash(cut:*), Bash(sort:*), Bash(head:*), Bash(tail:*), LS, Read, Grep, Task
-description: Advanced repository analysis with smart branch detection, activity filtering, and cross-repo insights
+allowed-tools: Bash(*:*), LS, Read, Grep, Task
+description: Advanced repository analysis with smart branch detection, activity filtering, and cross-repo insights  
 argument-hint: [days] [--active-only] [--format=compact|detailed] [--repos=pattern] [--author=name]
 ---
 
