@@ -1,84 +1,122 @@
 ---
-allowed-tools: Bash(find:*), Bash(git:*), Bash(cd:*), Bash(echo:*), Bash(date:*), Bash(ls:*), Bash(wc:*), Bash(xargs:*), LS, Read, Grep, Task
-description: Pull latest changes and provide deep analysis of commits with visual code snippets
-argument-hint: [days] (default: 2) | [days] [repo-filter]
+allowed-tools: Bash(find:*), Bash(git:*), Bash(cd:*), Bash(echo:*), Bash(date:*), Bash(ls:*), Bash(wc:*), Bash(xargs:*), Bash(grep:*), Bash(cut:*), Bash(sort:*), Bash(head:*), Bash(tail:*), LS, Read, Grep, Task
+description: Advanced repository analysis with smart branch detection, activity filtering, and cross-repo insights
+argument-hint: [days] [--active-only] [--format=compact|detailed] [--repos=pattern] [--author=name]
 ---
 
-# 🌅 Morning Sync Analysis - !`date "+%A, %B %d, %Y"`
+# 🌅 Morning Sync Analysis - !`date "+%A, %B %d, %Y at %I:%M %p"`
 
-## Configuration
-- Analysis period: Last ${ARGUMENTS:-2} days
-- Repository root: /Users/will/repos/jemena
-- Current time: !`date "+%I:%M %p"`
+## ⚙️ Smart Configuration
+**Analysis Period**: ${ARGUMENTS:-2} days  
+**Repository Root**: `/Users/will/repos/jemena`  
+**Mode**: Advanced analysis with cross-repo intelligence
 
-## Repository Scan
-!`find /Users/will/repos/jemena -type d -name ".git" -not -path "*/\.terraform/*"`
+## 📡 Repository Discovery & Branch Intelligence
+!`cd /Users/will/repos/jemena && for repo_git in $(find . -name ".git" -type d -not -path "*/\.terraform/*"); do repo_dir=$(dirname "$repo_git"); repo_name=$(basename "$repo_dir"); cd "$repo_dir"; default_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | cut -d/ -f4 || echo "main"); current_branch=$(git branch --show-current); recent_commits=$(git log --oneline --since="${ARGUMENTS:-2} days ago" | wc -l); echo "📁 $repo_name | Branch: $current_branch → $default_branch | Activity: $recent_commits commits"; cd /Users/will/repos/jemena; done`
 
-## Your Task
+## 🎯 Active Repository Filter
+!`cd /Users/will/repos/jemena && echo "🔥 Repositories with activity in last ${ARGUMENTS:-2} days:" && for repo_git in $(find . -name ".git" -type d -not -path "*/\.terraform/*"); do repo_dir=$(dirname "$repo_git"); repo_name=$(basename "$repo_dir"); cd "$repo_dir"; commits=$(git log --oneline --since="${ARGUMENTS:-2} days ago" | wc -l); if [ "$commits" -gt 0 ]; then echo "   ✨ $repo_name: $commits commits"; fi; cd /Users/will/repos/jemena; done`
 
-I need you to **ultra think** about the changes that happened in the last ${ARGUMENTS:-2} days across all Jemena repositories. 
+## 🧠 Your Ultra Think Mission
 
-### Deep Analysis Requirements:
+I need you to perform **advanced cross-repository analysis** of changes in the last ${ARGUMENTS:-2} days across Jemena infrastructure.
 
-1. **Pull latest changes** from all repositories under `/Users/will/repos/jemena`
+### 🎛️ **Smart Repository Operations**
 
-2. **Analyze each commit** to understand:
-   - WHY the change was made (infer from commit message and code changes)
-   - WHAT problem it solves
-   - HOW it impacts the overall system
-   - WHO made the change and when
+**CRITICAL**: Before analyzing any repository, you MUST:
 
-3. **Visual Code Analysis** - For significant changes:
-   - Show before/after code snippets
-   - Highlight the key differences
-   - Include file paths with line numbers (format: `path/to/file.py:42`)
-   - Focus on the most impactful 3-5 lines of each change
+1. **🔄 Smart Branch Switching**: 
+   - For `databricks-app-code-digital-analytics`: Switch to `dev` branch (not main)
+   - For all other repos: Use `main` branch
+   - Check current branch vs. default and switch if needed
 
-4. **Smart Categorization**:
-   - 🏗️ Infrastructure (Terraform, CI/CD)
-   - 🔌 Integrations (APIs, external systems)
-   - 📊 Analytics & Data Processing
-   - 🛡️ Security & Permissions
-   - 🧹 Refactoring & Tech Debt
-   - 📝 Documentation
-   - 🐛 Bug Fixes
+2. **⚡ Batch Pull Operations**: Pull latest changes from ALL repositories in parallel
 
-5. **Impact Assessment**:
-   - Rate each change: 🔴 Critical | 🟡 Important | 🟢 Minor
-   - Identify dependencies between changes
-   - Flag any breaking changes or risks
+3. **🎯 Activity-First Analysis**: Focus only on repositories with commits in the specified timeframe
 
-6. **Summary Format** - For each repository with changes:
-   ```markdown
-   ### 📁 repository-name
-   **Activity**: X commits by Y authors
-   **Key Theme**: [Main focus of changes]
-   
-   #### 🎯 Most Significant Change
-   **Why**: [Explanation of the motivation]
-   **File**: path/to/file.tf:123
+### 🏗️ **Repository Intelligence Map**
+
+```bash
+# Special repository configurations
+databricks-app-code-digital-analytics → dev branch (active development)
+app-datahub-*-databricks-aws-infra → main branch (production infrastructure)  
+databricks-workspaces → main branch (workspace management)
+databricks-unity-catalog → main branch (catalog management)
+core-network-* → main branch (network infrastructure)
+```
+
+### 📊 **Enhanced Analysis Framework**
+
+#### 1. **Cross-Repository Pattern Detection**
+   - **Infrastructure → Application Flow**: AWS infra changes feeding into Databricks configs
+   - **Authentication Cascades**: OAuth/API changes across multiple services
+   - **Version Dependencies**: Terraform provider updates affecting multiple repos
+
+#### 2. **Advanced Change Classification**
+   - 🔴 **CRITICAL**: Production config, breaking changes, security updates
+   - 🟡 **IMPORTANT**: New features, schema changes, integration updates  
+   - 🟢 **MINOR**: Documentation, formatting, small fixes, comments
+   - 🚨 **HOTFIX**: Emergency patches, urgent bug fixes
+   - 🔧 **MAINTENANCE**: Dependency updates, refactoring, cleanup
+
+#### 3. **Smart Impact Scoring**
    ```
-   ```diff
-   - old code line
-   + new improved line
+   Score = (Files Changed × 2) + (Lines Changed ÷ 10) + (Criticality Multiplier)
+   Criticality Multipliers: Production=3, Dev=2, Test=1, Docs=0.5
    ```
-   
-7. **Executive Summary** at the top:
-   - Top 3 most important changes across all repos
-   - Any urgent items requiring attention
-   - Patterns or trends observed
 
-### Extended Thinking Triggers
+#### 4. **Dependency Relationship Analysis**
+   - **AWS → Databricks**: Infrastructure changes enabling platform changes
+   - **Unity Catalog → Workspaces**: Schema/permission changes affecting workspace configs
+   - **Secrets → Multiple Repos**: Authentication changes cascading across services
+
+#### 5. **Visual Code Intelligence**
+   - **Before/After Diffs**: Focus on 3-5 most impactful lines
+   - **File Path Context**: Include module/folder structure for better understanding
+   - **Change Motivation**: Infer WHY from commit messages + code patterns
+
+### 🎯 **Ultra Think Deep Analysis Requirements**
+
+For each active repository, analyze:
+
+1. **📈 Activity Metrics**: Commits, authors, files changed, line delta
+2. **🧬 Change DNA**: What type of changes (config, code, schema, docs)
+3. **🔗 Cross-Repo Links**: How changes connect to other repositories
+4. **⚡ Urgency Indicators**: Commit timing, message tone, file criticality
+5. **🎪 Story Arc**: The narrative behind the changes
+
+### 🚀 **Execution Protocol**
+
+1. **Discover & Filter**: Find repos → Check activity → Focus on active ones
+2. **Smart Sync**: Switch to correct branches → Pull latest changes
+3. **Parallel Analysis**: Analyze all active repos simultaneously 
+4. **Pattern Recognition**: Identify cross-repo relationships and themes
+5. **Executive Summary**: Synthesize findings into actionable insights
+
+### 🎨 **Enhanced Output Format**
+
+```markdown
+## 📊 ACTIVITY HEATMAP
+🔥🔥🔥 repo-name (12 commits) - Major changes
+🔥🔥   repo-name (5 commits)  - Moderate activity  
+🔥     repo-name (2 commits)  - Light activity
+
+## 🎯 CROSS-REPO STORY
+**Theme**: OAuth Authentication Overhaul
+**Affected**: app-datahub-prod + databricks-workspaces + unity-catalog
+**Impact**: 🔴 Critical - Production authentication flow
+```
+
+### 🔮 **Extended Thinking Triggers**
 
 Ultra think about:
-- Which changes are interconnected across repositories?
-- What's the bigger picture behind these changes?
-- Are there any potential issues or conflicts?
-- What follow-up work might be needed?
-- How do these changes align with the Databricks migration goals?
+- **📈 Trend Analysis**: Are we seeing more infrastructure or application changes?
+- **🧬 Change Patterns**: Do commits suggest planned work or reactive fixes?
+- **⚡ Velocity Insights**: Is development accelerating or stabilizing?
+- **🔗 System Architecture**: How do these changes reflect system evolution?
+- **🎯 Strategic Alignment**: Do changes align with Databricks migration goals?
+- **⚠️ Risk Detection**: Any patterns suggesting potential issues?
 
-Provide the analysis in a way that helps me quickly understand what happened and why it matters, with visual code snippets that make the changes crystal clear.
+## 🚀 Begin Advanced Analysis
 
-## Begin Analysis
-
-Start by discovering all repositories and pulling the latest changes...
+Execute smart repository discovery, branch switching, and comprehensive cross-repo analysis now.
