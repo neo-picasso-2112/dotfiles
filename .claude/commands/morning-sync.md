@@ -11,11 +11,11 @@ argument-hint: [days] [--active-only] [--format=compact|detailed] [--repos=patte
 **Repository Root**: `/Users/will/repos/jemena`  
 **Mode**: Advanced analysis with cross-repo intelligence
 
-## 📡 Repository Discovery & Branch Intelligence
-!`cd /Users/will/repos/jemena && for repo_git in $(find . -name ".git" -type d -not -path "*/\.terraform/*"); do repo_dir=$(dirname "$repo_git"); repo_name=$(basename "$repo_dir"); cd "$repo_dir"; default_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | cut -d/ -f4 || echo "main"); current_branch=$(git branch --show-current); recent_commits=$(git log --oneline --since="${ARGUMENTS:-2} days ago" | wc -l); echo "📁 $repo_name | Branch: $current_branch → $default_branch | Activity: $recent_commits commits"; cd /Users/will/repos/jemena; done`
+## 📡 Repository Discovery
+!`find /Users/will/repos/jemena -name ".git" -type d -not -path "*/\.terraform/*"`
 
-## 🎯 Active Repository Filter
-!`cd /Users/will/repos/jemena && echo "🔥 Repositories with activity in last ${ARGUMENTS:-2} days:" && for repo_git in $(find . -name ".git" -type d -not -path "*/\.terraform/*"); do repo_dir=$(dirname "$repo_git"); repo_name=$(basename "$repo_dir"); cd "$repo_dir"; commits=$(git log --oneline --since="${ARGUMENTS:-2} days ago" | wc -l); if [ "$commits" -gt 0 ]; then echo "   ✨ $repo_name: $commits commits"; fi; cd /Users/will/repos/jemena; done`
+## 🎯 Analysis Starting Point
+Current analysis timeframe: ${ARGUMENTS:-2} days
 
 ## 🧠 Your Ultra Think Mission
 
