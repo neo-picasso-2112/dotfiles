@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(find:*), Bash(git pull:*), Bash(git log:*), Bash(git diff:*), Bash(git status:*), Bash(git branch:*), Bash(cd:*), Bash(echo:*), Bash(date:*), Bash(head:*), Bash(tail:*), LS, Read, Grep, Task
+allowed-tools: Bash(find:*), Bash(git:*), Bash(cd:*), Bash(echo:*), Bash(date:*), Bash(ls:*), Bash(wc:*), Bash(xargs:*), LS, Read, Grep, Task
 description: Pull latest changes and provide deep analysis of commits with visual code snippets
 argument-hint: [days] (default: 2) | [days] [repo-filter]
 ---
@@ -12,7 +12,7 @@ argument-hint: [days] (default: 2) | [days] [repo-filter]
 - Current time: !`date "+%I:%M %p"`
 
 ## Repository Scan
-!`echo "Discovering repositories..." && find /Users/will/repos/jemena -type d -name ".git" -not -path "*/\.terraform/*" | wc -l | xargs -I {} echo "Found {} repositories to analyze"`
+!`find /Users/will/repos/jemena -type d -name ".git" -not -path "*/\.terraform/*"`
 
 ## Your Task
 
