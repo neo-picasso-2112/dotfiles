@@ -48,12 +48,19 @@ colorscheme gruvbox
 "and it only affects Normal mode (no conflict with insert/visual mode mappings). 
 "Recommended for plugin mappings to avoid side effects.
 
-nnoremap <leader>n: NERDTreeFocus<CR>
-nnoremap <C-n>: NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> : NERDTreeToggle<CR>
 "This reveals current file in NERDTree and highlights it in the tree
 nnoremap <C-f> :NERDTreeFind<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <C-g> :RG<CR>
+
+" Toggle comment with Ctrl + / in visual mode
+xnoremap <C-_> :<C-u>call ToggleComment()<CR>
+
+" switch tabs with Tab and Shift + Tab.
+nnoremap <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprev<CR>
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "Ignore files in NERDTree
 
@@ -81,3 +88,30 @@ if executable('ruff')
      \ 'workspace_config': {},
      \ })
 endif
+
+function! ToggleComment()
+  let start = line("'<")
+  let end = line("'>")
+
+  let cs = &commentstring != '' ? substitute(&commentstring, '%s', '', '') : '//'
+  let cs_esc = escape(cs, '/\*.^$~[]')
+
+  let all_commented = 1
+  for lnum in range(start, end)
+    if getline(lnum) !~ '^\s*' . cs_esc
+      let all_commented = 0
+      break
+    endif
+  endfor
+
+  if all_commented
+    execute start . ',' . end . 's/^\s*' . cs_esc . '\s\?//'
+  else
+    execute start . ',' . end . 's/^/' . cs . ' /'
+  endif
+
+  " Reselect previous visual area so you stay in visual mode
+  call setpos("'<", [0, start, 1, 0])
+  call setpos("'>", [0, end, 1, 0])
+  normal! gv
+endfunction
