@@ -1,2 +1,2 @@
 - Never commit CLAUDE.md files to repository unless explicitly told so.
-- Always commit code often for medium-large size changes.
+- Always self-reflect on your solution while you're implementing to avoid any bugs/issues.
