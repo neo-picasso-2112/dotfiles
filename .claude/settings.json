@@ -5,8 +5,6 @@
       "Bash(git status)",
       "Bash(git diff)",
       "Bash(git log)",
-      "Bash(git add :*)",
-      "Bash(git commit :*)",
       "Bash(python :*)",
       "Bash(pip install :*)",
       "Bash(rg :*)",
@@ -28,7 +26,11 @@
   "enabledPlugins": {
     "pr-review-toolkit@claude-code-plugins": false,
     "feature-dev@claude-code-plugins": true,
-    "security-guidance@claude-code-plugins": true
+    "security-guidance@claude-code-plugins": false,
+    "data-engineering@claude-code-workflows": false,
+    "example-skills@anthropic-agent-skills": false,
+    "commit-commands@claude-code-plugins": true,
+    "changelog-generator@awesome-claude-skills": false
   },
   "alwaysThinkingEnabled": true
 }

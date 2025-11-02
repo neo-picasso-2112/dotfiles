@@ -20,7 +20,7 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-
+.config/raycast
 .config/iterm2
 brew-packages.txt
 readme.md

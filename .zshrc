@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Git Bash Aliases
 source ~/.zsh_aliases
 
@@ -25,7 +18,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -122,11 +115,12 @@ export LSCOLORS="GxFxCxDxBxegedabagaced"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias python=python3.12
 alias ls='ls -G'
-alias brain='cd ~/repos/second-brain'
+alias brain='cd ~/second-brain'
 
 # # fzf configuration
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
 export PATH=~/.npm-global/bin:$PATH
+alias claude="/Users/williamnguyen/.claude/local/claude"
 
-# Source Powerlevel10k theme
-source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+# opencode
+export PATH=/Users/williamnguyen/.opencode/bin:$PATH

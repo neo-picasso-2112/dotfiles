@@ -17,7 +17,6 @@ alias gb="git branch"
 ##########################
 # Personal
 alias python=python3
-alias copy-diff="git diff --name-only $(git merge-base origin/master HEAD) | xargs -I {} cp --parents '{}'"
 
 
 ########################

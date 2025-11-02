@@ -1,2 +1,4 @@
-- Never commit CLAUDE.md files to repository unless explicitly told so.
+- Never commit CLAUDE.md files to repository unless explicitly told so. Always verify with the user if they should commit CLAUDE.md files.
+- Never use `git add -A`, always verify what files you are staging by running `git status` and adding them manually like this `git add <file1> <file2>`
 - Always self-reflect on your solution while you're implementing to avoid any bugs/issues.
+- Always use short concise 1-2 liner git commit messages
