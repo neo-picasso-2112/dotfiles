@@ -1,4 +1,16 @@
 {
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/williamnguyen/.claude/hooks/skill-activation-prompt.sh"
+          }
+        ]
+      }
+    ]
+  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -27,10 +39,11 @@
     "pr-review-toolkit@claude-code-plugins": false,
     "feature-dev@claude-code-plugins": true,
     "security-guidance@claude-code-plugins": false,
-    "data-engineering@claude-code-workflows": false,
     "example-skills@anthropic-agent-skills": false,
-    "commit-commands@claude-code-plugins": true,
-    "changelog-generator@awesome-claude-skills": false
+    "commit-commands@claude-code-plugins": true
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "env": {
+    "MAX_THINKING_TOKENS": "31999"
+  }
 }
