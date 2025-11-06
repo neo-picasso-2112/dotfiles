@@ -25,3 +25,24 @@ alias winning="git shortlog --summary --numbered --email"
 alias repos="cd ~/repos"
 alias dot="cd ~/dotfiles"
 alias brain="cd ~/repos/second-brain"
+
+
+########################
+# Ghostty Theme Switcher
+ghostty-random-theme() {
+    # macOS config location
+    GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+
+    # Pick a random theme from the list
+    RANDOM_THEME=$(ghostty +list-themes | grep -v "^$" | shuf -n 1 | sed 's/ (resources)//')
+
+    # Remove old theme line from config
+    sed -i.bak '/^theme =/d' "$GHOSTTY_CONFIG"
+
+    # Add new random theme to config
+    echo "theme = $RANDOM_THEME" >> "$GHOSTTY_CONFIG"
+
+    echo "🎨 Switched to: $RANDOM_THEME"
+}
+
+alias grt='ghostty-random-theme'
