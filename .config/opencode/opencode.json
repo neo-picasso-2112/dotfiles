@@ -1,5 +1,48 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "keybinds": {
+    "leader": "\\",
+    "model_list": "<leader>m",
+    "theme_list": "<leader>t",
+
+    "app_exit": "ctrl+c,ctrl+d,<leader>q",
+    "editor_open": "<leader>e",
+    "sidebar_toggle": "<leader>b",
+    "status_view": "<leader>s",
+    "session_export": "<leader>x",
+    "session_new": "<leader>n",
+    "session_list": "<leader>l",
+    "session_timeline": "<leader>g",
+    "session_share": "none",
+    "session_unshare": "none",
+    "session_interrupt": "escape",
+    "session_compact": "<leader>c",
+    "session_child_cycle": "ctrl+right",
+    "session_child_cycle_reverse": "ctrl+left",
+    "messages_page_up": "pageup",
+    "messages_page_down": "pagedown",
+    "messages_half_page_up": "ctrl+alt+u",
+    "messages_half_page_down": "ctrl+alt+d",
+    "messages_first": "ctrl+g,home",
+    "messages_last": "ctrl+alt+g,end",
+    "messages_copy": "<leader>y",
+    "messages_undo": "<leader>u",
+    "messages_redo": "<leader>r",
+    "messages_toggle_conceal": "<leader>h",
+    "model_cycle_recent": "f2",
+    "model_cycle_recent_reverse": "shift+f2",
+    "command_list": "ctrl+p",
+    "agent_list": "<leader>a",
+    "agent_cycle": "tab",
+    "agent_cycle_reverse": "shift+tab",
+    "input_clear": "ctrl+c",
+    "input_forward_delete": "ctrl+d",
+    "input_paste": "ctrl+v",
+    "input_submit": "enter",
+    "input_newline": "shift+enter,ctrl+j",
+    "history_previous": "up",
+    "history_next": "down"
+  },
   "agent": {
     "plan": {
       "mode": "primary",
@@ -16,7 +59,7 @@
     "plugin": [
     "opencode-openai-codex-auth"
   ],
-  "model": "openai/gpt-5-codex-medium",
+  "model": "openai/gpt-5-codex-high",
   "provider": {
     "openai": {
       "options": {
@@ -29,10 +72,14 @@
         "store": false
       },
       "models": {
-        "gpt-5-codex-medium": {
-          "name": "GPT 5 Codex Medium (OAuth)",
+        "gpt-5-codex-high": {
+          "name": "GPT 5 Codex High (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
           "options": {
-            "reasoningEffort": "medium",
+            "reasoningEffort": "high",
             "reasoningSummary": "auto",
             "textVerbosity": "medium",
             "include": [
@@ -41,23 +88,15 @@
             "store": false
           }
         },
-        "gpt-5-codex-high": {
-          "name": "GPT 5 Codex High (OAuth)",
+        "gpt-5-codex-mini-high": {
+          "name": "GPT 5 Codex Mini High (OAuth)",
+          "limit": {
+            "context": 200000,
+            "output": 100000
+          },
           "options": {
             "reasoningEffort": "high",
             "reasoningSummary": "detailed",
-            "textVerbosity": "medium",
-            "include": [
-              "reasoning.encrypted_content"
-            ],
-            "store": false
-          }
-        },
-        "gpt-5-medium": {
-          "name": "GPT 5 Medium (OAuth)",
-          "options": {
-            "reasoningEffort": "medium",
-            "reasoningSummary": "auto",
             "textVerbosity": "medium",
             "include": [
               "reasoning.encrypted_content"
@@ -67,6 +106,10 @@
         },
         "gpt-5-high": {
           "name": "GPT 5 High (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
           "options": {
             "reasoningEffort": "high",
             "reasoningSummary": "detailed",
@@ -76,8 +119,143 @@
             ],
             "store": false
           }
+        },
+
+        "gpt-5-codex-medium": {
+          "name": "GPT 5 Codex Medium (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "options": {
+            "reasoningEffort": "medium",
+            "reasoningSummary": "auto",
+            "textVerbosity": "medium",
+            "include": [
+              "reasoning.encrypted_content"
+            ],
+            "store": false
+          }
+        },
+        "gpt-5-codex-mini-medium": {
+          "name": "GPT 5 Codex Mini Medium (OAuth)",
+          "limit": {
+            "context": 200000,
+            "output": 100000
+          },
+          "options": {
+            "reasoningEffort": "medium",
+            "reasoningSummary": "auto",
+            "textVerbosity": "medium",
+            "include": [
+              "reasoning.encrypted_content"
+            ],
+            "store": false
+          }
+        },
+        "gpt-5-medium": {
+          "name": "GPT 5 Medium (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "options": {
+            "reasoningEffort": "medium",
+            "reasoningSummary": "auto",
+            "textVerbosity": "medium",
+            "include": [
+              "reasoning.encrypted_content"
+            ],
+            "store": false
+          }
+        },
+
+        "gpt-5-codex-low": {
+          "name": "GPT 5 Codex Low (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "options": {
+            "reasoningEffort": "low",
+            "reasoningSummary": "auto",
+            "textVerbosity": "medium",
+            "include": [
+              "reasoning.encrypted_content"
+            ],
+            "store": false
+          }
+        },
+        "gpt-5-minimal": {
+          "name": "GPT 5 Minimal (OAuth)",
+          "limit": {
+            "context": 272000,
+            "output": 128000
+          },
+          "options": {
+            "reasoningEffort": "minimal",
+            "reasoningSummary": "auto",
+            "textVerbosity": "low",
+            "include": [
+              "reasoning.encrypted_content"
+            ],
+            "store": false
+          }
         }
       }
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": true
+    },
+    "aws-diagram": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "awslabs.aws-diagram-mcp-server@latest"
+      ],
+      "enabled": true,
+      "environment": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "aws.cost-explorer": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "awslabs.cost-explorer-mcp-server@latest"
+      ],
+      "enabled": true,
+      "environment": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "AWS_PROFILE": "default",
+        "AWS_REGION": "ap-southeast-2"
+      }
+    },
+    "aws.billing-cost-management": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "awslabs.billing-cost-management-mcp-server@latest"
+      ],
+      "enabled": true,
+      "environment": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "AWS_PROFILE": "default",
+        "AWS_REGION": "ap-southeast-2"
+      }
+    },
+    "aws-knowledge": {
+      "type": "remote",
+      "url": "https://knowledge-mcp.global.api.aws",
+      "enabled": true
     }
   }
 }

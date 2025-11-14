@@ -1,4 +1,7 @@
 {
+  "env": {
+    "MAX_THINKING_TOKENS": "31999"
+  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -29,9 +32,5 @@
     "security-guidance@claude-code-plugins": false,
     "example-skills@anthropic-agent-skills": false,
     "commit-commands@claude-code-plugins": true
-  },
-  "alwaysThinkingEnabled": true,
-  "env": {
-    "MAX_THINKING_TOKENS": "31999"
   }
 }

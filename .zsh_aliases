@@ -31,18 +31,132 @@ alias brain="cd ~/repos/second-brain"
 # Ghostty Theme Switcher
 ghostty-random-theme() {
     # macOS config location
-    GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+    local GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+    local FAVORITES_FILE="$HOME/Library/Application Support/com.mitchellh.ghostty/favorites"
 
-    # Pick a random theme from the list
-    RANDOM_THEME=$(ghostty +list-themes | grep -v "^$" | shuf -n 1 | sed 's/ (resources)//')
+    # Helper function to switch theme
+    _switch_theme() {
+        local theme=$1
+        # Remove old theme line from config
+        sed -i.bak '/^theme =/d' "$GHOSTTY_CONFIG"
+        # Add new theme to config
+        echo "theme = $theme" >> "$GHOSTTY_CONFIG"
+        echo "🎨 Switched to: $theme"
+    }
 
-    # Remove old theme line from config
-    sed -i.bak '/^theme =/d' "$GHOSTTY_CONFIG"
+    # Helper function to get current theme
+    _get_current_theme() {
+        grep '^theme =' "$GHOSTTY_CONFIG" 2>/dev/null | sed 's/^theme = //'
+    }
 
-    # Add new random theme to config
-    echo "theme = $RANDOM_THEME" >> "$GHOSTTY_CONFIG"
+    # Show help
+    if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+        cat << EOF
+Usage: grt [OPTIONS] [THEME]
 
-    echo "🎨 Switched to: $RANDOM_THEME"
+Ghostty Random Theme Switcher
+
+OPTIONS:
+    (no args)              Switch to random theme from all available themes
+    -f, --favorite         Switch to random theme from favorites
+    -l, --list             List all favorite themes
+    -a, --add [THEME]      Add theme to favorites (current theme if not specified)
+    --remove THEME         Remove theme from favorites
+    -h, --help             Show this help message
+
+EXAMPLES:
+    grt                    # Random theme from all
+    grt -f                 # Random from favorites
+    grt -a gruvbox-dark    # Add gruvbox-dark to favorites
+    grt -a                 # Add current theme to favorites
+    grt -l                 # List favorites
+    grt --remove everforest # Remove everforest from favorites
+EOF
+        return 0
+    fi
+
+    # List favorites
+    if [[ "$1" == "-l" || "$1" == "--list" ]]; then
+        if [[ ! -f "$FAVORITES_FILE" ]] || [[ ! -s "$FAVORITES_FILE" ]]; then
+            echo "📋 No favorites yet. Use 'grt -a THEME' to add one."
+            return 0
+        fi
+        echo "⭐ Favorite themes:"
+        cat "$FAVORITES_FILE" | nl -w2 -s'. '
+        return 0
+    fi
+
+    # Add to favorites
+    if [[ "$1" == "-a" || "$1" == "--add" ]]; then
+        local theme_to_add="$2"
+
+        # If no theme specified, use current theme
+        if [[ -z "$theme_to_add" ]]; then
+            theme_to_add=$(_get_current_theme)
+            if [[ -z "$theme_to_add" ]]; then
+                echo "❌ No theme specified and no current theme found."
+                echo "Usage: grt -a THEME"
+                return 1
+            fi
+        fi
+
+        # Create favorites file if it doesn't exist
+        mkdir -p "$(dirname "$FAVORITES_FILE")"
+        touch "$FAVORITES_FILE"
+
+        # Check if already in favorites
+        if grep -qx "$theme_to_add" "$FAVORITES_FILE" 2>/dev/null; then
+            echo "ℹ️  '$theme_to_add' is already in favorites"
+            return 0
+        fi
+
+        # Add to favorites
+        echo "$theme_to_add" >> "$FAVORITES_FILE"
+        echo "✅ Added '$theme_to_add' to favorites"
+        return 0
+    fi
+
+    # Remove from favorites
+    if [[ "$1" == "--remove" ]]; then
+        if [[ -z "$2" ]]; then
+            echo "❌ Please specify a theme to remove"
+            echo "Usage: grt --remove THEME"
+            return 1
+        fi
+
+        if [[ ! -f "$FAVORITES_FILE" ]]; then
+            echo "❌ No favorites file found"
+            return 1
+        fi
+
+        local theme_to_remove="$2"
+        if ! grep -qx "$theme_to_remove" "$FAVORITES_FILE"; then
+            echo "❌ '$theme_to_remove' not found in favorites"
+            return 1
+        fi
+
+        # Remove from favorites (create temp file to avoid sed -i issues)
+        grep -vx "$theme_to_remove" "$FAVORITES_FILE" > "${FAVORITES_FILE}.tmp"
+        mv "${FAVORITES_FILE}.tmp" "$FAVORITES_FILE"
+        echo "✅ Removed '$theme_to_remove' from favorites"
+        return 0
+    fi
+
+    # Random from favorites
+    if [[ "$1" == "-f" || "$1" == "--favorite" ]]; then
+        if [[ ! -f "$FAVORITES_FILE" ]] || [[ ! -s "$FAVORITES_FILE" ]]; then
+            echo "❌ No favorites found. Add some first with 'grt -a THEME'"
+            return 1
+        fi
+
+        local random_favorite=$(shuf -n 1 "$FAVORITES_FILE")
+        _switch_theme "$random_favorite"
+        return 0
+    fi
+
+    # Default: Random from all themes
+    local random_theme=$(ghostty +list-themes | grep -v "^$" | shuf -n 1 | sed 's/ (resources)//')
+    _switch_theme "$random_theme"
 }
 
 alias grt='ghostty-random-theme'

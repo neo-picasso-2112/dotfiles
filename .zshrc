@@ -117,10 +117,51 @@ alias python=python3.12
 alias ls='ls -G'
 alias brain='cd ~/second-brain'
 
-# # fzf configuration
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse-list --info=inline --border --pointer='→' --marker='♡' --header='CTRL-c or ESC to quit'"
-export PATH=~/.npm-global/bin:$PATH
-alias claude="/Users/williamnguyen/.claude/local/claude"
+# fzf configuration
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS="\
+  --height 40% \
+  --layout=reverse-list \
+  --info=inline \
+  --border \
+  --border-label=' 🔍 Search ' \
+  --border-label-pos=3 \
+  --pointer='→' \
+  --marker='♡' \
+  --header='↑↓:navigate • ⏎:select • Tab:mark • ESC:quit' \
+  --preview='bat --color=always --style=numbers --line-range=:500 {}' \
+  --preview-window=right:60%:border-left:wrap \
+  --highlight-line \
+  --scrollbar='│' \
+  --wrap \
+  --keep-right"
+
+# Interactive ripgrep content search + vim
+rgv() (
+  RELOAD='reload:rg --line-number --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            vim {1} +{2}
+          else
+            vim +cw -q {+f}
+          fi'
+  fzf --disabled --ansi --multi \
+      --height=95% \
+      --header='↑↓:navigate • ⏎:open • ^O:keep open • ^/:toggle preview • ESC:quit' \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} --theme=Nord {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up),wrap' \
+      --query "$*"
+)
+
+# Keybinding for content search
+bindkey -s '^F' 'rgv\n'
 
 # opencode
 export PATH=/Users/williamnguyen/.opencode/bin:$PATH
+export PATH=~/.npm-global/bin:$PATH
+alias claude="/Users/williamnguyen/.claude/local/claude"
+
