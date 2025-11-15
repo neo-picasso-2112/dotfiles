@@ -9,7 +9,6 @@
       "Bash(git diff)",
       "Bash(git log)",
       "Bash(python :*)",
-      "Bash(pip install :*)",
       "Bash(rg :*)",
       "Bash(ls :*)",
       "Bash(cd :*)",
@@ -32,5 +31,6 @@
     "security-guidance@claude-code-plugins": false,
     "example-skills@anthropic-agent-skills": false,
     "commit-commands@claude-code-plugins": true
-  }
+  },
+  "alwaysThinkingEnabled": true
 }
