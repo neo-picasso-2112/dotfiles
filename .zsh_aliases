@@ -30,9 +30,9 @@ alias brain="cd ~/repos/second-brain"
 ########################
 # Ghostty Theme Switcher
 ghostty-random-theme() {
-    # macOS config location
-    local GHOSTTY_CONFIG="$HOME/Library/Application Support/com.mitchellh.ghostty/config"
-    local FAVORITES_FILE="$HOME/Library/Application Support/com.mitchellh.ghostty/favorites"
+    # XDG config location (managed via dotfiles)
+    local GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
+    local FAVORITES_FILE="$HOME/.config/ghostty/favorites"
 
     # Helper function to switch theme
     _switch_theme() {
