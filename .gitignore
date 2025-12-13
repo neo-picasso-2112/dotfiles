@@ -7,3 +7,9 @@ __pycache__/
 .vim/plugged/
 .config/raycast/
 *.bak
+
+.codex/auth.json
+.codex/sessions/
+.codex/history.jsonl
+.codex/version.json
+.codex/log/
