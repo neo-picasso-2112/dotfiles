@@ -50,4 +50,9 @@
 # resize-overlay-duration = 4s 200ms
 #
 
-theme = Phala Green Dark
+
+# Font Configuration - Clean & Compact
+font-family = SF Mono
+font-size = 13
+keybind = shift+enter=text:\x1b\r
+theme = Lab Fox

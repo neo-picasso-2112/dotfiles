@@ -2,7 +2,7 @@
 allowed-tools: Bash(git status), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git show:*)
 argument-hint: [base-branch]
 description: Generate merge request title and description from branch changes
-model: claude-sonnet-4-5-20250929
+model: claude-opus-4-5
 ---
 
 Analyze the current feature branch changes and generate a merge request title and description that's casual yet informative for developers.

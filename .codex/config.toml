@@ -1,0 +1,43 @@
+model = "gpt-5.1"
+model_reasoning_effort = "high"
+
+[features]
+web_search_request = true
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+# [mcp_servers.aws-diagram]
+# command = "uvx"
+# args = ["awslabs.aws-diagram-mcp-server@latest"]
+# startup_timeout_sec = 120
+# [mcp_servers.aws-diagram.env]
+# FASTMCP_LOG_LEVEL = "ERROR"
+# 
+# [mcp_servers.aws-terraform]
+# command = "uvx"
+# args = ["awslabs.terraform-mcp-server@latest"]
+# startup_timeout_sec = 180
+# tool_timeout_sec = 60
+# [mcp_servers.aws-terraform.env]
+# FASTMCP_LOG_LEVEL = "ERROR"
+# 
+# [mcp_servers.billing-cost-management]
+# command = "uvx"
+# args = ["awslabs.billing-cost-management-mcp-server@latest"]
+# startup_timeout_sec = 180
+# 
+# [mcp_servers.billing-cost-management.env]
+# FASTMCP_LOG_LEVEL = "ERROR"
+# AWS_PROFILE = "default"
+# AWS_REGION = "ap-southeast-2"
+# 
+# [notice]
+# hide_gpt5_1_migration_prompt = true
+# "hide_gpt-5.1-codex-max_migration_prompt" = true
+
+[projects."/Users/williamnguyen/repos"]
+trust_level = "untrusted"
+
+

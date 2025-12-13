@@ -1,0 +1,172 @@
+{
+    "version": "1.0",
+    "description": "Skill activation triggers for Claude Code. Controls when skills automatically suggest or block actions.",
+    "skills": {
+        "skill-developer": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "high",
+            "description": "Meta-skill for creating and managing Claude Code skills",
+            "promptTriggers": {
+                "keywords": [
+                    "skill system",
+                    "create skill",
+                    "add skill",
+                    "skill triggers",
+                    "skill rules",
+                    "hook system",
+                    "skill development",
+                    "skill-rules.json"
+                ],
+                "intentPatterns": [
+                    "(how do|how does|explain).*?skill",
+                    "(create|add|modify|build).*?skill",
+                    "skill.*?(work|trigger|activate|system)"
+                ]
+            }
+        },
+        "jemena-shared-vpc-navigator": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "critical",
+            "description": "Critical guidance for Jemena's shared VPC networking model where core-network owns VPCs/subnets/NAT, preventing mistakes with resources owned by Cloud team",
+            "promptTriggers": {
+                "keywords": [
+                    "VPC",
+                    "subnet",
+                    "security group",
+                    "NAT gateway",
+                    "Private Link",
+                    "FEPL",
+                    "BEPL",
+                    "Route 53",
+                    "DNS",
+                    "core-network",
+                    "shared VPC",
+                    "workspace access",
+                    "cluster connectivity",
+                    "RDS metastore",
+                    "Zscaler",
+                    "David Hunter",
+                    "234268347951",
+                    "339712836516",
+                    "851725449831",
+                    "VPN",
+                    "corporate VPN",
+                    "conditional forwarder",
+                    "on-prem",
+                    "Active Directory",
+                    "ALINTA",
+                    "PowerDev",
+                    "10.32.1.130",
+                    "10.32.2.194",
+                    "10.32.3.190",
+                    "KMS key"
+                ],
+                "intentPatterns": [
+                    "(create|add|modify).*?(vpc|subnet|nat.*?gateway|security.*?group)",
+                    "(can't|cannot).*?(access|connect).*?(workspace|cluster)",
+                    "(debug|troubleshoot|fix).*?(connectivity|access|network|dns)",
+                    "(user|cluster).*?(can't|cannot).*?(access|connect|start)",
+                    "private.*?link.*?(endpoint|issue|problem)",
+                    "dns.*?(resolution|flipping|issue|problem)",
+                    "(vpn|remote).*?(access|connect|issue)",
+                    "conditional.*?forwarder",
+                    "(can't|cannot).*?access.*?(vpn|remote)",
+                    "(request|need|get).*?(kms.*?key|security.*?group|dns.*?record)",
+                    "(who do i|how do i).*?(request|contact|get).*?(resource|key|access)"
+                ]
+            },
+            "filePathPatterns": [
+                "**/core-network-databricks-vpc-components/**",
+                "**/core-network-databricks-workspaces-phz/**",
+                "**/*vpc*.tf",
+                "**/*network*.tf",
+                "**/*security-group*.tf"
+            ]
+        },
+        "databricks-platform-operations": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "critical",
+            "description": "Complete operational runbooks for Jemena's Databricks platform with 5-layer architecture, terraform patterns, Unity Catalog, and RBAC",
+            "promptTriggers": {
+                "keywords": [
+                    "add workspace",
+                    "new workspace",
+                    "onboard BU",
+                    "new business unit",
+                    "terraform state",
+                    "remote state",
+                    "module vs stack",
+                    "Unity Catalog",
+                    "metastore",
+                    "catalog",
+                    "RBAC",
+                    "permission denied",
+                    "access denied",
+                    "deployment order",
+                    "Layer 1",
+                    "Layer 2",
+                    "Layer 3",
+                    "databricks-unity-catalog",
+                    "databricks-workspaces",
+                    "app-datahub-aws-infra",
+                    "GitLab HTTP backend",
+                    "blast radius",
+                    "OIDC",
+                    "GitLab OIDC",
+                    "service principal",
+                    "authentication",
+                    "AWS OIDC",
+                    "keyless",
+                    "oidc-session.sh",
+                    "DATABRICKS_CLIENT_ID",
+                    "DATABRICKS_CLIENT_SECRET",
+                    "gitlab-ci-token"
+                ],
+                "intentPatterns": [
+                    "(how do|how to).*?(add|create|onboard).*(workspace|bu|business unit)",
+                    "(modify|update|change).*?(shared module|terraform module)",
+                    "(permission|access).*?(denied|error|issue)",
+                    "(can't|cannot).*?(access|see).*(catalog|schema|table)",
+                    "terraform.*(state|remote.*?state|dependency)",
+                    "(what|when).*?(deploy|deployment order)",
+                    "(metastore|catalog).*?(binding|constraint|issue)",
+                    "(gitlab|databricks).*?authentication",
+                    "oidc.*?(setup|configuration|issue)",
+                    "(service principal|oauth).*?(credential|auth)",
+                    "(aws|databricks).*?provider.*?auth"
+                ]
+            },
+            "filePathPatterns": [
+                "**/databricks-unity-catalog/**",
+                "**/databricks-workspaces/**",
+                "**/app-datahub-*-databricks-aws-infra/**",
+                "**/*catalog*.tf",
+                "**/*rbac*.tf",
+                "**/*workspace*.tf",
+                "**/dependencies.tf",
+                "**/backend.tf"
+            ]
+        }
+    },
+    "notes": {
+        "enforcement_types": {
+            "suggest": "Skill suggestion appears but doesn't block execution",
+            "block": "Requires skill to be used before proceeding (guardrail)",
+            "warn": "Shows warning but allows proceeding"
+        },
+        "priority_levels": {
+            "critical": "Highest - Always trigger when matched",
+            "high": "Important - Trigger for most matches",
+            "medium": "Moderate - Trigger for clear matches",
+            "low": "Optional - Trigger only for explicit matches"
+        },
+        "customization": {
+            "pathPatterns": "Adjust to match your project structure (blog-api, auth-service, etc.)",
+            "keywords": "Add domain-specific terms relevant to your project",
+            "intentPatterns": "Use regex for flexible user intent matching"
+        }
+    }
+}

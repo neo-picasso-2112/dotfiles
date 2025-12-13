@@ -1,0 +1,41 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MSG=$(jq -r '.message'); terminal-notifier -title \"🔔 Claude Code\" -message \"$MSG\" -group \"$(pwd):hook\" -contentImage \"/Applications/Claude.app/Contents/Resources/electron.icns\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MSG=$(jq -r '.message // \"Task completed\"' | head -c 200); terminal-notifier -title \"✅ Claude Code: Done\" -message \"$MSG\" -group \"$(pwd):hook\" -contentImage \"/Applications/Claude.app/Contents/Resources/electron.icns\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/improve-prompt.py\""
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(terminal-notifier:*)"
+    ]
+  }
+}
