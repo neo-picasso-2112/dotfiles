@@ -163,5 +163,4 @@ bindkey -s '^F' 'rgv\n'
 # opencode
 export PATH=/Users/williamnguyen/.opencode/bin:$PATH
 export PATH=~/.npm-global/bin:$PATH
-alias claude="/Users/williamnguyen/.claude/local/claude"
 

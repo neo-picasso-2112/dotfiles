@@ -26,11 +26,15 @@
       "Bash(eval :*)"
     ]
   },
-  "enabledPlugins": {
-    "pr-review-toolkit@claude-code-plugins": false,
-    "feature-dev@claude-code-plugins": true,
-    "example-skills@anthropic-agent-skills": false,
-    "commit-commands@claude-code-plugins": true
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "pr-review-toolkit@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true
+  }
 }
