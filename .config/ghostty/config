@@ -56,3 +56,5 @@ font-family = SF Mono
 font-size = 13
 keybind = shift+enter=text:\x1b\r
 theme = Lab Fox
+background-opacity = 0.85
+background-blur = true
